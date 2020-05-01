@@ -1,0 +1,13 @@
+import {
+  DatePicker as KendoDatePicker,
+  DatePickerProps as KendoDatePickerProps,
+} from "@progress/kendo-react-dateinputs";
+import * as React from "react";
+
+interface DatePickerProps extends KendoDatePickerProps {}
+
+function DatePicker(props: DatePickerProps) {
+  return <KendoDatePicker {...props} />;
+}
+
+export default DatePicker;

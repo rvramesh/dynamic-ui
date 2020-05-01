@@ -2,6 +2,7 @@ import { makeStyles, Theme } from "@material-ui/core";
 import React from "react";
 import { Route } from "react-router-dom";
 import HomePage from "./Scenes/Home/HomePage";
+import InfoPage from "./Scenes/Info/InfoPage";
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -23,6 +24,7 @@ function Routes() {
     <div className={classes.content}>
       <Route exact={true} path="/" component={HomePage} />
       <Route exact={true} path="/home" component={HomePage} />
+      <Route exact={true} path="/info" component={InfoPage} />
     </div>
   );
 }

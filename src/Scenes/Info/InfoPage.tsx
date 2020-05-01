@@ -4,7 +4,7 @@ import MultiSelect from "../../Common/Components/MultiSelect";
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 
-function HomePage() {
+function InfoPage() {
   return (
     <div>
       <ReactQueryConfigProvider config={queryConfig}>
@@ -12,10 +12,11 @@ function HomePage() {
           url="http://localhost:4000/countries"
           textField="country"
           name="country"
+          isMultiSelect={true}
         />
       </ReactQueryConfigProvider>
     </div>
   );
 }
 
-export default HomePage;
+export default InfoPage;
