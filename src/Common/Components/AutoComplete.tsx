@@ -8,7 +8,7 @@ import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { useQuery } from "react-query";
 import { useDebounce } from "use-debounce";
-import { AutoCompleteProps } from "../Types/AutoCompleteProps";
+import { AutoCompleteFormFieldProps } from "../Types/AutoCompleteFormFieldProps";
 
 async function sendQuery(
   url: string,
@@ -21,7 +21,7 @@ async function sendQuery(
   return { json, moreDataExist };
 }
 
-const AutoComplete: FunctionComponent<AutoCompleteProps> = (props) => {
+const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   const [searchData, setSearchData] = useState("");
   const [debouncedSearchData] = useDebounce(searchData, 1000);
 

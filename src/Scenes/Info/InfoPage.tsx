@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactQueryConfigProvider } from "react-query";
-import MultiSelect from "../../Common/Components/MultiSelect";
+import MultiSelect from "../../Common/Components/AutoComplete";
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 
