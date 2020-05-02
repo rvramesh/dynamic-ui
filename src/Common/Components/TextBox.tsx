@@ -3,9 +3,9 @@ import {
   InputProps as KendoTextBoxProps,
 } from "@progress/kendo-react-inputs";
 import * as React from "react";
-import { FormFieldProps } from "../Types/FormFieldProps";
+import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 
-type TextBoxProps = KendoTextBoxProps & FormFieldProps;
+type TextBoxProps = KendoTextBoxProps & FormFieldChildProps;
 
 function TextBox(props: TextBoxProps) {
   return <KendoTextBox {...props} />;

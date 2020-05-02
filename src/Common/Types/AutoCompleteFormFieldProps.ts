@@ -1,7 +1,7 @@
 import { FormComponentProps } from "@progress/kendo-react-common";
-import { FormFieldProps } from "./FormFieldProps";
+import { FormFieldChildProps } from "./FormFieldChildProps";
 
-interface AutoCompleteProps extends FormFieldProps {
+interface AutoCompleteProps extends FormFieldChildProps {
   url: string;
   name: string;
   fetchInit?: RequestInit;

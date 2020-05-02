@@ -13,6 +13,7 @@ function InfoPage() {
           textField="country"
           name="country"
           isMultiSelect={true}
+          id="country"
         />
       </ReactQueryConfigProvider>
     </div>

@@ -3,9 +3,9 @@ import {
   NumericTextBoxProps as KendoNumericTextBoxProps,
 } from "@progress/kendo-react-inputs";
 import * as React from "react";
-import { FormFieldProps } from "../Types/FormFieldProps";
+import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 
-type NumericTextBoxProps = KendoNumericTextBoxProps & FormFieldProps;
+type NumericTextBoxProps = KendoNumericTextBoxProps & FormFieldChildProps;
 
 function NumericTextBox(props: NumericTextBoxProps) {
   return <KendoNumericTextBox {...props} />;

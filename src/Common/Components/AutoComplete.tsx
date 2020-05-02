@@ -37,14 +37,24 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
 
   const [localSearchResult, setLocalSearchResult] = useState(data?.json);
 
-  const onFilterChange = (e: FilterChangeEvent<unknown>) => {
-    const value = e.filter.value;
+  const modifySearchData = (value: string) => {
     const isMoreDataExistInServer = data?.moreDataExist;
     if (isMoreDataExistInServer) {
       setSearchData(value);
     } else {
-      setLocalSearchResult(filterBy(data?.json.slice(), e.filter));
+      setLocalSearchResult(
+        filterBy(data?.json.slice(), {
+          field: props.name,
+          operator: "contains",
+          value: value,
+          ignoreCase: true,
+        })
+      );
     }
+  };
+
+  const onFilterChange = (e: FilterChangeEvent<unknown>) => {
+    modifySearchData(e.filter.value);
   };
 
   if (props.isMultiSelect) {
@@ -53,6 +63,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
         {...props}
         filterable={true}
         onFilterChange={onFilterChange}
+        onOpen={() => modifySearchData("")}
         data={localSearchResult}
         loading={status === "loading"}
         allowCustom={false}
@@ -64,6 +75,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
         {...props}
         filterable={true}
         onFilterChange={onFilterChange}
+        onOpen={() => modifySearchData("")}
         data={localSearchResult}
         loading={status === "loading"}
         allowCustom={false}

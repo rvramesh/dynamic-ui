@@ -3,8 +3,9 @@ import {
   DatePickerProps as KendoDatePickerProps,
 } from "@progress/kendo-react-dateinputs";
 import * as React from "react";
+import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 
-interface DatePickerProps extends KendoDatePickerProps {}
+type DatePickerProps = KendoDatePickerProps & FormFieldChildProps;
 
 function DatePicker(props: DatePickerProps) {
   return <KendoDatePicker {...props} />;
