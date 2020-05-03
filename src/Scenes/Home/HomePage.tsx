@@ -3,6 +3,7 @@ import * as React from "react";
 import { useState } from "react";
 import { ReactQueryConfigProvider } from "react-query";
 import AutoCompleteMultiSelect from "../../Common/Components/AutoCompleteMultiSelect";
+import CheckBox from "../../Common/Components/CheckBox";
 import DatePicker from "../../Common/Components/DatePicker";
 import FormField from "../../Common/Components/FormField";
 import TextBox from "../../Common/Components/TextBox";
@@ -16,13 +17,6 @@ const autoComplete = (props: FormFieldChildProps) => {
   return (
     <AutoCompleteMultiSelect url="http://localhost:4000/countries" {...props} />
   );
-};
-const datePicker = (props: FormFieldChildProps) => {
-  return <DatePicker {...props} />;
-};
-
-const textBox = (props: FormFieldChildProps) => {
-  return <TextBox {...props} />;
 };
 
 function HomePage() {
@@ -46,7 +40,7 @@ function HomePage() {
             type="Select"
           />
           <FormField
-            component={datePicker}
+            component={DatePicker}
             name="date"
             displayName="Hello World"
             onBlur={() => console.log("blur")}
@@ -54,12 +48,20 @@ function HomePage() {
             type="DateTime"
           />
           <FormField
-            component={textBox}
+            component={TextBox}
             name="city"
             displayName="Hello World"
             onBlur={() => console.log("blur")}
             onValueChange={(val: unknown) => console.log(val)}
             type="TextBox"
+          />
+          <FormField
+            component={CheckBox}
+            name="active"
+            displayName="Hello World"
+            onBlur={() => console.log("blur")}
+            onValueChange={(val: unknown) => console.log(val)}
+            type="CheckBox"
           />
         </Grid>
       </ReactQueryConfigProvider>

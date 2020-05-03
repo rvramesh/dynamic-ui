@@ -9,10 +9,13 @@ import { getTextValue } from "../Utils/TextUtil";
 type TextBoxProps = Omit<KendoTextBoxProps, "value"> & FormFieldChildProps;
 
 function TextBox(props: TextBoxProps) {
+  //Extract onValueChange out of props to avoid warning
+  //Unknown event handler property `onValueChange`.
+  const { onValueChange, ...others } = props;
   return (
     <KendoTextBox
-      {...props}
-      onChange={(e) => props.onValueChange(e.target.value)}
+      {...others}
+      onChange={(e) => onValueChange(e.target.value)}
       value={getTextValue(props.value)}
     />
   );

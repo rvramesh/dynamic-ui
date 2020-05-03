@@ -6,6 +6,7 @@ export type FormFieldValue =
   | string
   | number
   | Date
+  | boolean
   | null
   | {
       start: Date | null;
@@ -24,7 +25,8 @@ export type FormFieldType =
   | "DateRange"
   | "MaskedTextBox"
   | "TextBox"
-  | "NumericTextBox";
+  | "NumericTextBox"
+  | "CheckBox";
 export type FormFieldChildProps = {
   name: string;
   id: string;
