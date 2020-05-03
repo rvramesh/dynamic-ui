@@ -5,7 +5,6 @@ interface AutoCompleteProps extends FormFieldChildProps {
   name: string;
   fetchInit?: RequestInit;
   limit?: number;
-  isMultiSelect?: boolean;
   textField?: string;
 }
 

@@ -12,12 +12,24 @@ export type FormFieldValue =
       end: Date | null;
     }
   | FormFieldValue[]
-  | KeyValue;
+  | KeyValue
+  | undefined;
 
+export type FormFieldType =
+  | "Select"
+  | "MultiSelect"
+  | "Date"
+  | "DateTime"
+  | "Time"
+  | "DateRange"
+  | "MaskedTextBox"
+  | "TextBox"
+  | "NumericTextBox";
 export type FormFieldChildProps = {
   name: string;
   id: string;
   onBlur: () => void;
   onValueChange: (value: FormFieldValue) => void;
   value?: FormFieldValue;
+  type: FormFieldType;
 };

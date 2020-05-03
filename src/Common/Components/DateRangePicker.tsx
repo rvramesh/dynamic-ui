@@ -12,7 +12,7 @@ function DateRangePicker(props: DateRangePickerProps) {
     <KendoDateRangePicker
       {...props}
       onChange={(e) =>
-        props?.onValueChange?.({ start: e.value.start, end: e.value.end })
+        props.onValueChange({ start: e.value.start, end: e.value.end })
       }
     />
   );

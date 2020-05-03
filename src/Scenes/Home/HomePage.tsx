@@ -2,9 +2,10 @@ import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { useState } from "react";
 import { ReactQueryConfigProvider } from "react-query";
-import MultiSelect from "../../Common/Components/AutoComplete";
+import AutoCompleteMultiSelect from "../../Common/Components/AutoCompleteMultiSelect";
 import DatePicker from "../../Common/Components/DatePicker";
 import FormField from "../../Common/Components/FormField";
+import TextBox from "../../Common/Components/TextBox";
 import {
   FormFieldChildProps,
   FormFieldValue,
@@ -12,14 +13,23 @@ import {
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 const autoComplete = (props: FormFieldChildProps) => {
-  return <MultiSelect url="http://localhost:4000/countries" {...props} />;
+  return (
+    <AutoCompleteMultiSelect url="http://localhost:4000/countries" {...props} />
+  );
 };
 const datePicker = (props: FormFieldChildProps) => {
   return <DatePicker {...props} />;
 };
 
+const textBox = (props: FormFieldChildProps) => {
+  return <TextBox {...props} />;
+};
+
 function HomePage() {
-  const [select, setSelect] = useState<FormFieldValue>({ text: "India" });
+  const [select, setSelect] = useState<FormFieldValue>([
+    { text: "India" },
+    { text: "United Kingdom" },
+  ]);
   return (
     <div>
       <ReactQueryConfigProvider config={queryConfig}>
@@ -31,9 +41,9 @@ function HomePage() {
             onBlur={() => console.log("blur")}
             onValueChange={(val: FormFieldValue) => {
               setSelect(val);
-              console.log(val);
             }}
             value={select}
+            type="Select"
           />
           <FormField
             component={datePicker}
@@ -41,7 +51,15 @@ function HomePage() {
             displayName="Hello World"
             onBlur={() => console.log("blur")}
             onValueChange={(val: unknown) => console.log(val)}
-            value="1/1/2020"
+            type="DateTime"
+          />
+          <FormField
+            component={textBox}
+            name="city"
+            displayName="Hello World"
+            onBlur={() => console.log("blur")}
+            onValueChange={(val: unknown) => console.log(val)}
+            type="TextBox"
           />
         </Grid>
       </ReactQueryConfigProvider>

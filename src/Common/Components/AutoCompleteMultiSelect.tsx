@@ -1,15 +1,18 @@
 import { filterBy } from "@progress/kendo-data-query";
-import { ComboBox as KendoComboBox } from "@progress/kendo-react-dropdowns";
+import { MultiSelect as KendoMultiSelect } from "@progress/kendo-react-dropdowns";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
-import { useDebounce } from "use-debounce";
+import { useDebounce } from "use-debounce/lib";
 import { AutoCompleteFormFieldProps } from "../Types/AutoCompleteFormFieldProps";
 import { useDropDownQuery } from "../Utils/NetworkUtil";
 
-const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
+const AutoCompleteMultiSelect: FunctionComponent<AutoCompleteFormFieldProps> = (
+  props
+) => {
   const [searchData, setSearchData] = useState("");
   const [debouncedSearchData] = useDebounce(searchData, 1000);
   //TODO: Handle Error?
+
   const { status, data } = useDropDownQuery(
     [props.textField ?? props.name, { queryKey: debouncedSearchData }],
     debouncedSearchData,
@@ -38,7 +41,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   };
 
   return (
-    <KendoComboBox
+    <KendoMultiSelect
       {...props}
       onChange={(e) => props.onValueChange(e.value)}
       filterable={true}
@@ -50,8 +53,8 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
       value={
         props.value
           ? Array.isArray(props.value)
-            ? props.value[0]
-            : props.value
+            ? props.value
+            : [props.value]
           : undefined
       }
       textField="text"
@@ -59,8 +62,8 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   );
 };
 
-AutoComplete.defaultProps = {
+AutoCompleteMultiSelect.defaultProps = {
   limit: 500,
 };
 
-export default AutoComplete;
+export default AutoCompleteMultiSelect;
