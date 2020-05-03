@@ -14,6 +14,8 @@ function InfoPage() {
           name="country"
           isMultiSelect={true}
           id="country"
+          onBlur={() => {}}
+          onValueChange={(val: unknown) => {}}
         />
       </ReactQueryConfigProvider>
     </div>

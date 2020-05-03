@@ -8,7 +8,12 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type NumericTextBoxProps = KendoNumericTextBoxProps & FormFieldChildProps;
 
 function NumericTextBox(props: NumericTextBoxProps) {
-  return <KendoNumericTextBox {...props} />;
+  return (
+    <KendoNumericTextBox
+      {...props}
+      onChange={(e) => props.onValueChange(e.value)}
+    />
+  );
 }
 
 export default NumericTextBox;

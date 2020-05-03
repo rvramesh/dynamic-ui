@@ -8,7 +8,12 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type DateTimePickerProps = KendoDateTimePickerProps & FormFieldChildProps;
 
 function DateTimePicker(props: DateTimePickerProps) {
-  return <KendoDateTimePicker {...props} />;
+  return (
+    <KendoDateTimePicker
+      {...props}
+      onChange={(e) => props?.onValueChange?.(e.value)}
+    />
+  );
 }
 
 export default DateTimePicker;

@@ -8,7 +8,12 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type TextBoxProps = KendoTextBoxProps & FormFieldChildProps;
 
 function TextBox(props: TextBoxProps) {
-  return <KendoTextBox {...props} />;
+  return (
+    <KendoTextBox
+      {...props}
+      onChange={(e) => props.onValueChange(e.target.value)}
+    />
+  );
 }
 
 export default TextBox;

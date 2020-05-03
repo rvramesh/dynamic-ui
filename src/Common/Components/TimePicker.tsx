@@ -8,7 +8,12 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type TimePickerProps = KendoTimePickerProps & FormFieldChildProps;
 
 function TimePicker(props: TimePickerProps) {
-  return <KendoTimePicker {...props} />;
+  return (
+    <KendoTimePicker
+      {...props}
+      onChange={(e) => props.onValueChange(e.value)}
+    />
+  );
 }
 
 export default TimePicker;

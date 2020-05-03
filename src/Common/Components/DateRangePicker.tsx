@@ -8,7 +8,14 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type DateRangePickerProps = KendoDateRangePickerProps & FormFieldChildProps;
 
 function DateRangePicker(props: DateRangePickerProps) {
-  return <KendoDateRangePicker {...props} />;
+  return (
+    <KendoDateRangePicker
+      {...props}
+      onChange={(e) =>
+        props?.onValueChange?.({ start: e.value.start, end: e.value.end })
+      }
+    />
+  );
 }
 
 export default DateRangePicker;

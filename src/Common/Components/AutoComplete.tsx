@@ -24,13 +24,12 @@ async function sendQuery(
 const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   const [searchData, setSearchData] = useState("");
   const [debouncedSearchData] = useDebounce(searchData, 1000);
-
   //TODO: Handle Error?
   const { status, data } = useQuery(
-    [props.name, { queryKey: debouncedSearchData }],
+    [props.textField ?? props.name, { queryKey: debouncedSearchData }],
     async () => {
       const query = encodeURIComponent(debouncedSearchData);
-      const apiUrl = `${props.url}?${props.name}_like=${query}&_limit=${props.limit}`;
+      const apiUrl = `${props.url}?text_like=${query}&_limit=${props.limit}`;
       return await sendQuery(apiUrl, props.fetchInit);
     }
   );
@@ -44,7 +43,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
     } else {
       setLocalSearchResult(
         filterBy(data?.json.slice(), {
-          field: props.name,
+          field: "text",
           operator: "contains",
           value: value,
           ignoreCase: true,
@@ -61,24 +60,29 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
     return (
       <KendoMultiSelect
         {...props}
+        onChange={(e) => props?.onValueChange?.(e.value)}
         filterable={true}
         onFilterChange={onFilterChange}
         onOpen={() => modifySearchData("")}
         data={localSearchResult}
         loading={status === "loading"}
         allowCustom={false}
+        value={props.value ? [props.value] : undefined}
       />
     );
   } else {
     return (
       <KendoComboBox
         {...props}
+        onChange={(e) => props?.onValueChange?.(e.value)}
         filterable={true}
         onFilterChange={onFilterChange}
         onOpen={() => modifySearchData("")}
         data={localSearchResult}
         loading={status === "loading"}
         allowCustom={false}
+        value={props.value ? props.value : undefined}
+        textField="text"
       />
     );
   }

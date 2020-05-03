@@ -1,4 +1,3 @@
-import { FormComponentProps } from "@progress/kendo-react-common";
 import { FormFieldChildProps } from "./FormFieldChildProps";
 
 interface AutoCompleteProps extends FormFieldChildProps {
@@ -10,4 +9,5 @@ interface AutoCompleteProps extends FormFieldChildProps {
   textField?: string;
 }
 
-export type AutoCompleteFormFieldProps = FormComponentProps & AutoCompleteProps;
+export type AutoCompleteFormFieldProps = FormFieldChildProps &
+  AutoCompleteProps;

@@ -8,7 +8,12 @@ import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 type MaskedTextBoxProps = KendoMaskedTextBoxProps & FormFieldChildProps;
 
 function MaskedTextBox(props: MaskedTextBoxProps) {
-  return <KendoMaskedTextBox {...props} />;
+  return (
+    <KendoMaskedTextBox
+      {...props}
+      onChange={(e) => props.onValueChange(e.value)}
+    />
+  );
 }
 
 export default MaskedTextBox;
