@@ -1,7 +1,8 @@
 import { FormFieldChildProps } from "./FormFieldChildProps";
 
 interface AutoCompleteProps extends FormFieldChildProps {
-  url: string;
+  url?: string;
+  entity?: string;
   name: string;
   fetchInit?: RequestInit;
   limit?: number;

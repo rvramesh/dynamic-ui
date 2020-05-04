@@ -2,21 +2,22 @@ export type KeyValue =
   | { text: string; value: string | number }
   | { text: string }
   | KeyValue[];
+export type DateRange = {
+  start: Date | null;
+  end: Date | null;
+};
 export type FormFieldValue =
   | string
   | number
   | Date
   | boolean
   | null
-  | {
-      start: Date | null;
-      end: Date | null;
-    }
+  | DateRange
   | FormFieldValue[]
   | KeyValue
   | undefined;
 
-export type FormFieldType =
+export type FormFieldChildType =
   | "Select"
   | "MultiSelect"
   | "Date"
@@ -27,11 +28,14 @@ export type FormFieldType =
   | "TextBox"
   | "NumericTextBox"
   | "CheckBox";
+
+export type FormFieldType = FormFieldChildType | "FieldSet";
+
 export type FormFieldChildProps = {
   name: string;
   id: string;
   onBlur: () => void;
   onValueChange: (value: FormFieldValue) => void;
   value?: FormFieldValue;
-  type: FormFieldType;
+  type: FormFieldChildType;
 };

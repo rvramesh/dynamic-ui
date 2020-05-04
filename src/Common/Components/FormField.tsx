@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import { uniqueId } from "lodash";
 import * as React from "react";
-import { useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 
 type FormFieldProps = {
@@ -9,7 +9,9 @@ type FormFieldProps = {
   displayName: string;
 } & Omit<FormFieldChildProps, "id">;
 
-function FormField(props: FormFieldProps) {
+const FormField: FunctionComponent<FormFieldProps> = (
+  props: FormFieldProps
+) => {
   const Component = props.component;
   const { component, displayName, ...other } = props;
   //Lazy initialize the state value. Will be called only on first render.
@@ -24,6 +26,6 @@ function FormField(props: FormFieldProps) {
       </Grid>
     </React.Fragment>
   );
-}
+};
 
 export default FormField;

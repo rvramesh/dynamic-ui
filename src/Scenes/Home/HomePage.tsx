@@ -5,6 +5,7 @@ import { ReactQueryConfigProvider } from "react-query";
 import AutoCompleteMultiSelect from "../../Common/Components/AutoCompleteMultiSelect";
 import CheckBox from "../../Common/Components/CheckBox";
 import DatePicker from "../../Common/Components/DatePicker";
+import DateRangePicker from "../../Common/Components/DateRangePicker";
 import FormField from "../../Common/Components/FormField";
 import TextBox from "../../Common/Components/TextBox";
 import {
@@ -41,6 +42,14 @@ function HomePage() {
           />
           <FormField
             component={DatePicker}
+            name="date"
+            displayName="Hello World"
+            onBlur={() => console.log("blur")}
+            onValueChange={(val: unknown) => console.log(val)}
+            type="DateTime"
+          />
+          <FormField
+            component={DateRangePicker}
             name="date"
             displayName="Hello World"
             onBlur={() => console.log("blur")}

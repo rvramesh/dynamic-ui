@@ -14,7 +14,7 @@ export async function sendQuery(
 export function useDropDownQuery(
   key: AnyQueryKey,
   searchData: string,
-  url: string,
+  url: string = "/",
   limit: number = 500,
   fetchInit?: RequestInit
 ) {
