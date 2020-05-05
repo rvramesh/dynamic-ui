@@ -3,8 +3,8 @@ import * as React from "react";
 import { useDynamicForm } from "../Context/DynamicFormContext";
 import { FormElement } from "./DynamicForm";
 import { FormFieldProps } from "./FormField";
-import FormFieldItemAdd from "./FormFieldItemAdd";
-import FormFieldItemRemove from "./FormFieldItemRemove";
+import FormFieldItemAddButton from "./FormFieldItemAddButton";
+import FormFieldItemRemove from "./FormFieldItemRemoveButton";
 
 export type FormFieldSetProps = {
   children: FormElement;
@@ -59,6 +59,7 @@ function FormFieldSet(props: FormFieldSetProps) {
             removeIndex(props.name, i);
             setIndex(index - 1);
           }}
+          key={props.name + "-" + i}
         />
       );
     }
@@ -68,9 +69,9 @@ function FormFieldSet(props: FormFieldSetProps) {
     <React.Fragment>
       <Grid container item spacing={1} style={style}>
         {content}
-        {props.maxOccurance && index < props.maxOccurance && (
+        {(!props.maxOccurance || index < props.maxOccurance) && (
           <Grid item xs={12} sm={9}>
-            <FormFieldItemAdd addClicked={() => setIndex(index + 1)} />
+            <FormFieldItemAddButton addClicked={() => setIndex(index + 1)} />
           </Grid>
         )}
       </Grid>
