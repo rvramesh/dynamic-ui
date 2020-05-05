@@ -2,18 +2,28 @@ import { filterBy } from "@progress/kendo-data-query";
 import { ComboBox as KendoComboBox } from "@progress/kendo-react-dropdowns";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
+import { AnyQueryKey } from "react-query/types";
 import { useDebounce } from "use-debounce";
 import { AutoCompleteFormFieldProps } from "../Types/AutoCompleteFormFieldProps";
 import { useDropDownQuery } from "../Utils/NetworkUtil";
 
+const buildUrl = (url: string="/", entity: string="") =>
+  url.endsWith("/") ? url + entity : url + "/" + entity;
 const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   const [searchData, setSearchData] = useState("");
   const [debouncedSearchData] = useDebounce(searchData, 1000);
+
+  const key = props.textField ?? props.entity;
+  const queryKey: false | AnyQueryKey = key !== undefined && [
+    key,
+    { queryKey: debouncedSearchData },
+  ];
   //TODO: Handle Error?
+
   const { status, data } = useDropDownQuery(
-    [props.textField ?? props.name, { queryKey: debouncedSearchData }],
+    queryKey,
     debouncedSearchData,
-    props.url,
+    buildUrl(props.url, props.entity),
     props.limit,
     props.fetchInit
   );

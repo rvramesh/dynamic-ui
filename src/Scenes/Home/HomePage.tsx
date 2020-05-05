@@ -1,19 +1,14 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { useState } from "react";
-import { ReactQueryConfigProvider } from "react-query";
 import AutoCompleteMultiSelect from "../../Common/Components/AutoCompleteMultiSelect";
-import CheckBox from "../../Common/Components/CheckBox";
-import DatePicker from "../../Common/Components/DatePicker";
-import DateRangePicker from "../../Common/Components/DateRangePicker";
 import FormField from "../../Common/Components/FormField";
-import TextBox from "../../Common/Components/TextBox";
+import { DynamicFormProvider } from "../../Common/Context/DynamicFormContext";
 import {
   FormFieldChildProps,
   FormFieldValue,
 } from "../../Common/Types/FormFieldChildProps";
 
-const queryConfig = { refetchAllOnWindowFocus: false };
 const autoComplete = (props: FormFieldChildProps) => {
   return (
     <AutoCompleteMultiSelect url="http://localhost:4000/countries" {...props} />
@@ -27,53 +22,25 @@ function HomePage() {
   ]);
   return (
     <div>
-      <ReactQueryConfigProvider config={queryConfig}>
-        <Grid container spacing={3}>
+      <Grid container spacing={3}>
+        <DynamicFormProvider>
           <FormField
-            component={autoComplete}
             name="country"
             displayName="Hello World"
-            onBlur={() => console.log("blur")}
-            onValueChange={(val: FormFieldValue) => {
-              setSelect(val);
-            }}
-            value={select}
             type="Select"
+            entity="countries"
+            url="http://localhost:4000/"
           />
+          <FormField name="date" displayName="Hello World" type="Date" />
           <FormField
-            component={DatePicker}
-            name="date"
+            name="datetime"
             displayName="Hello World"
-            onBlur={() => console.log("blur")}
-            onValueChange={(val: unknown) => console.log(val)}
             type="DateTime"
           />
-          <FormField
-            component={DateRangePicker}
-            name="date"
-            displayName="Hello World"
-            onBlur={() => console.log("blur")}
-            onValueChange={(val: unknown) => console.log(val)}
-            type="DateTime"
-          />
-          <FormField
-            component={TextBox}
-            name="city"
-            displayName="Hello World"
-            onBlur={() => console.log("blur")}
-            onValueChange={(val: unknown) => console.log(val)}
-            type="TextBox"
-          />
-          <FormField
-            component={CheckBox}
-            name="active"
-            displayName="Hello World"
-            onBlur={() => console.log("blur")}
-            onValueChange={(val: unknown) => console.log(val)}
-            type="CheckBox"
-          />
-        </Grid>
-      </ReactQueryConfigProvider>
+          <FormField name="city" displayName="Hello World" type="TextBox" />
+          <FormField name="active" displayName="Hello World" type="CheckBox" />
+        </DynamicFormProvider>
+      </Grid>
     </div>
   );
 }

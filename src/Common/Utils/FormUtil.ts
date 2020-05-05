@@ -4,7 +4,7 @@ import CheckBox from "../Components/CheckBox";
 import DatePicker from "../Components/DatePicker";
 import DateRangePicker from "../Components/DateRangePicker";
 import DateTimePicker from "../Components/DateTimePicker";
-import FieldSet from "../Components/FieldSet";
+import { default as FieldSet } from "../Components/FormFieldSet";
 import MaskedTextBox from "../Components/MaskedTextBox";
 import NumericTextBox from "../Components/NumericTextBox";
 import TextBox from "../Components/TextBox";

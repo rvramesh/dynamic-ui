@@ -32,10 +32,8 @@ export type FormFieldChildType =
 export type FormFieldType = FormFieldChildType | "FieldSet";
 
 export type FormFieldChildProps = {
-  name: string;
   id: string;
   onBlur: () => void;
   onValueChange: (value: FormFieldValue) => void;
   value?: FormFieldValue;
-  type: FormFieldChildType;
 };

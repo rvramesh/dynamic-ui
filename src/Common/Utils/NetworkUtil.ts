@@ -12,7 +12,7 @@ export async function sendQuery(
 }
 
 export function useDropDownQuery(
-  key: AnyQueryKey,
+  key: false | AnyQueryKey,
   searchData: string,
   url: string = "/",
   limit: number = 500,

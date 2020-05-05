@@ -11,11 +11,10 @@ function InfoPage() {
         <MultiSelect
           url="http://localhost:4000/countries"
           textField="country"
-          name="country"
+          entity="country"
           id="country"
           onBlur={() => {}}
           onValueChange={(val: unknown) => {}}
-          type="MultiSelect"
         />
       </ReactQueryConfigProvider>
     </div>
