@@ -1,11 +1,17 @@
 import * as React from "react";
-import { ReactQueryConfigProvider } from "react-query/types";
+import { ReactQueryConfigProvider } from "react-query";
 import { DynamicFormProvider } from "../Context/DynamicFormContext";
-import { fieldFactory } from "./fieldFactory";
 import { FormFieldProps } from "./FormField";
 import { FormFieldSetProps } from "./FormFieldSet";
 
-type DynamicFormProps = (FormFieldProps | FormFieldSetProps)[];
+type DynamicFormProps = {
+  children: FormElement;
+};
+
+export type FormElement =
+  | React.ReactElement<FormFieldSetProps>
+  | React.ReactElement<FormFieldProps>
+  | FormElement[];
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 
@@ -13,7 +19,7 @@ function DynamicForm(props: DynamicFormProps) {
   return (
     <DynamicFormProvider>
       <ReactQueryConfigProvider config={queryConfig}>
-        {props.map(fieldFactory)}
+        {props.children}
       </ReactQueryConfigProvider>
     </DynamicFormProvider>
   );

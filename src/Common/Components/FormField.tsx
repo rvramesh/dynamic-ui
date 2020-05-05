@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import { uniqueId } from "lodash/fp";
+import { get, uniqueId } from "lodash/fp";
 import * as React from "react";
 import { FunctionComponent, useState } from "react";
 import { useDynamicForm } from "../Context/DynamicFormContext";
@@ -25,7 +25,8 @@ const FormField: FunctionComponent<FormFieldProps> = (
 
   const [visited, setVisited] = useState(false);
   const [state, dispatch] = useDynamicForm();
-  const fieldValue = state.values[name];
+  const fieldValue = get(name, state.values);
+  debugger;
   const Component = FieldMapping[type];
 
   const dispatchChangeEvent = (value: FormFieldValue) => {

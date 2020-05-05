@@ -6,9 +6,8 @@ import { AnyQueryKey } from "react-query/types";
 import { useDebounce } from "use-debounce";
 import { AutoCompleteFormFieldProps } from "../Types/AutoCompleteFormFieldProps";
 import { useDropDownQuery } from "../Utils/NetworkUtil";
+import { buildUrl } from "../Utils/UrlUtil";
 
-const buildUrl = (url: string="/", entity: string="") =>
-  url.endsWith("/") ? url + entity : url + "/" + entity;
 const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
   const [searchData, setSearchData] = useState("");
   const [debouncedSearchData] = useDebounce(searchData, 1000);

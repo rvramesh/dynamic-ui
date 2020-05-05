@@ -24,7 +24,9 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
   switch (action.type) {
     case "change": {
       const payload = action.payload;
-      return set("values." + payload.name, payload.value, state);
+      const newState = set("values." + payload.name, payload.value, state);
+      console.log(newState);
+      return newState;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

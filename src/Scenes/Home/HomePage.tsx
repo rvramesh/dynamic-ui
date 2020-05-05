@@ -2,8 +2,9 @@ import { Grid } from "@material-ui/core";
 import * as React from "react";
 import { useState } from "react";
 import AutoCompleteMultiSelect from "../../Common/Components/AutoCompleteMultiSelect";
+import DynamicForm from "../../Common/Components/DynamicForm";
 import FormField from "../../Common/Components/FormField";
-import { DynamicFormProvider } from "../../Common/Context/DynamicFormContext";
+import FormFieldSet from "../../Common/Components/FormFieldSet";
 import {
   FormFieldChildProps,
   FormFieldValue,
@@ -22,8 +23,8 @@ function HomePage() {
   ]);
   return (
     <div>
-      <Grid container spacing={3}>
-        <DynamicFormProvider>
+      <Grid container spacing={1}>
+        <DynamicForm>
           <FormField
             name="country"
             displayName="Hello World"
@@ -39,7 +40,26 @@ function HomePage() {
           />
           <FormField name="city" displayName="Hello World" type="TextBox" />
           <FormField name="active" displayName="Hello World" type="CheckBox" />
-        </DynamicFormProvider>
+          <FormFieldSet avoidPadLeft={true} name="set2">
+            <FormField
+              name="city-rpt"
+              displayName="Hello World"
+              type="TextBox"
+            />
+            <FormField
+              name="active-rpt"
+              displayName="Hello World"
+              type="CheckBox"
+            />
+            <FormFieldSet name="set1">
+              <FormField
+                name="date"
+                displayName="Hello World DATE"
+                type="Date"
+              />
+            </FormFieldSet>
+          </FormFieldSet>
+        </DynamicForm>
       </Grid>
     </div>
   );

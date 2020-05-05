@@ -10,6 +10,7 @@ type DatePickerProps = FormFieldChildProps &
   Omit<KendoDatePickerProps, "value">;
 
 function DatePicker(props: DatePickerProps) {
+  debugger;
   const value = getDateValue(props.value);
 
   return (
