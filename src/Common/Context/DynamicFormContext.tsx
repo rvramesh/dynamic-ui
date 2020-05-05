@@ -1,11 +1,16 @@
-import { set } from "lodash/fp";
+import { concat, get, set, slice } from "lodash/fp";
 import React, { Dispatch } from "react";
 import { FormFieldValue } from "../Types/FormFieldChildProps";
 
-export type DynamicFormAction = {
-  type: "change";
-  payload: { name: string; value: FormFieldValue };
-};
+export type DynamicFormAction =
+  | {
+      type: "change";
+      payload: { name: string; value: FormFieldValue };
+    }
+  | {
+      type: "removeFormFieldSetElement";
+      payload: { name: string; index: number };
+    };
 
 type State = {
   values: {
@@ -25,11 +30,31 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
     case "change": {
       const payload = action.payload;
       const newState = set("values." + payload.name, payload.value, state);
-      console.log(newState);
+      console.log("setting new state", newState);
       return newState;
     }
+    case "removeFormFieldSetElement": {
+      debugger;
+      const payload = action.payload;
+      const arrayData = get("values." + payload.name, state);
+      if (arrayData && payload.index < arrayData.length) {
+        const firstSet = slice(0, payload.index, arrayData);
+        console.log("array data after slice", arrayData);
+        const secondSet = slice(payload.index + 1, arrayData.length, arrayData);
+
+        const newState = set(
+          "values." + payload.name,
+          concat(firstSet, secondSet),
+          state
+        );
+        console.log("setting new state", newState);
+        return newState;
+      } else {
+        return { ...state };
+      }
+    }
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type`);
     }
   }
 }

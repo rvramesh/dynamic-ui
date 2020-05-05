@@ -27,9 +27,17 @@ function HomePage() {
         <DynamicForm>
           <FormField
             name="country"
-            displayName="Hello World"
+            displayName="Country"
             type="Select"
             entity="countries"
+            url="http://localhost:4000/"
+          />
+
+          <FormField
+            name="state"
+            displayName="Hello World"
+            type="Select"
+            entity="states"
             url="http://localhost:4000/"
           />
           <FormField name="date" displayName="Hello World" type="Date" />
@@ -38,9 +46,7 @@ function HomePage() {
             displayName="Hello World"
             type="DateTime"
           />
-          <FormField name="city" displayName="Hello World" type="TextBox" />
-          <FormField name="active" displayName="Hello World" type="CheckBox" />
-          <FormFieldSet avoidPadLeft={true} name="set2">
+          <FormFieldSet avoidPadLeft={true} name="set2" maxOccurance={2}>
             <FormField
               name="city-rpt"
               displayName="Hello World"

@@ -29,7 +29,7 @@
     "use-debounce": "^3.4.2"
   },
   "scripts": {
-    "server": "json-server --watch --port 4000 --delay 2000 api/db.json",
+    "server": "json-server --watch --port 4000 --delay 5000 api/db.json",
     "dev": "concurrently \"npm start\" \"npm run server\"",
     "start": "react-scripts start",
     "build": "react-scripts build",

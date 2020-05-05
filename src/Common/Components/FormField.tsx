@@ -26,7 +26,6 @@ const FormField: FunctionComponent<FormFieldProps> = (
   const [visited, setVisited] = useState(false);
   const [state, dispatch] = useDynamicForm();
   const fieldValue = get(name, state.values);
-  debugger;
   const Component = FieldMapping[type];
 
   const dispatchChangeEvent = (value: FormFieldValue) => {

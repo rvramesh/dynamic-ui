@@ -1,7 +1,10 @@
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import * as React from "react";
+import { useDynamicForm } from "../Context/DynamicFormContext";
 import { FormElement } from "./DynamicForm";
 import { FormFieldProps } from "./FormField";
+import FormFieldItemAdd from "./FormFieldItemAdd";
+import FormFieldItemRemove from "./FormFieldItemRemove";
 
 export type FormFieldSetProps = {
   children: FormElement;
@@ -32,21 +35,44 @@ function FormFieldSet(props: FormFieldSetProps) {
   });
 
   const [index, setIndex] = React.useState(() =>
-    Math.min(props.minOccurance, props.occurances ?? 1)
+    Math.min(props.minOccurance, props.occurances ?? props.minOccurance)
   );
+  const [state, dispatch] = useDynamicForm();
+
+  const removeIndex = (name: string, index: number) => {
+    dispatch({
+      type: "removeFormFieldSetElement",
+      payload: {
+        name: name,
+        index: index,
+      },
+    });
+  };
   const content: any[] = [];
   console.log(index);
   for (let i = 0; i < index; i++) {
     content.push([elements.map(cloneElement(props.name, i))]);
+    if (index > props.minOccurance) {
+      content.push(
+        <FormFieldItemRemove
+          removeClicked={() => {
+            removeIndex(props.name, i);
+            setIndex(index - 1);
+          }}
+        />
+      );
+    }
   }
   const style = !props.avoidPadLeft ? { paddingLeft: "30px" } : undefined;
   return (
     <React.Fragment>
       <Grid container item spacing={1} style={style}>
         {content}
-        <Grid item xs={12} sm={9}>
-          <Button onClick={() => setIndex(index + 1)}>Add</Button>
-        </Grid>
+        {props.maxOccurance && index < props.maxOccurance && (
+          <Grid item xs={12} sm={9}>
+            <FormFieldItemAdd addClicked={() => setIndex(index + 1)} />
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );
