@@ -24,7 +24,7 @@ function Footer() {
   return (
     <div className={classes.root}>
       <Typography variant="body2" color="textSecondary" align="center">
-        Made with <FavIcon className={classes.fav} />
+        Code is Poerty
       </Typography>
     </div>
   );
