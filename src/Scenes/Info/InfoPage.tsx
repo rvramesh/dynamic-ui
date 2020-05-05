@@ -1,22 +1,71 @@
+import { Grid } from "@material-ui/core";
 import * as React from "react";
-import { ReactQueryConfigProvider } from "react-query";
-import MultiSelect from "../../Common/Components/AutoComplete";
-
-const queryConfig = { refetchAllOnWindowFocus: false };
+import DynamicForm, { FormProps } from "../../Common/Components/DynamicForm";
 
 function InfoPage() {
+  const formSchema: FormProps[] = [
+    {
+      name: "country",
+      displayName: "Country",
+      type: "Select",
+      entity: "countries",
+      url: "http://localhost:4000/",
+    },
+    {
+      name: "state",
+      displayName: "Hello World",
+      type: "Select",
+      entity: "states",
+      url: "http://localhost:4000/",
+    },
+    {
+      name: "date",
+      displayName: "Hello World",
+      type: "Date",
+    },
+    {
+      name: "datetime",
+      displayName: "Hello World",
+      type: "DateTime",
+    },
+    {
+      minOccurance: 1,
+      avoidPadLeft: true,
+      name: "set2",
+      maxOccurance: 2,
+      type: "FieldSet",
+      childProps: [
+        {
+          name: "city-rpt",
+          displayName: "Hello World",
+          type: "TextBox",
+        },
+        {
+          name: "active-rpt",
+          displayName: "Hello World",
+          type: "CheckBox",
+        },
+        {
+          minOccurance: 1,
+          name: "set1",
+          type: "FieldSet",
+          childProps: [
+            {
+              name: "date",
+              displayName: "Hello World DATE",
+              type: "Date",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
     <div>
-      <ReactQueryConfigProvider config={queryConfig}>
-        <MultiSelect
-          url="http://localhost:4000/countries"
-          textField="country"
-          entity="country"
-          id="country"
-          onBlur={() => {}}
-          onValueChange={(val: unknown) => {}}
-        />
-      </ReactQueryConfigProvider>
+      <Grid container spacing={1}>
+        <DynamicForm formSchema={formSchema}></DynamicForm>
+      </Grid>
     </div>
   );
 }

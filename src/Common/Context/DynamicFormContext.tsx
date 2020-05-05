@@ -34,7 +34,6 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
       return newState;
     }
     case "removeFormFieldSetElement": {
-      debugger;
       const payload = action.payload;
       const arrayData = get("values." + payload.name, state);
       if (arrayData && payload.index < arrayData.length) {

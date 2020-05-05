@@ -1,13 +1,14 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
+import { useState } from "react";
 import { useDynamicForm } from "../Context/DynamicFormContext";
-import { FormElement } from "./DynamicForm";
+import { FormElement, FormProps } from "./DynamicForm";
+import { fieldFactory } from "./fieldFactory";
 import { FormFieldProps } from "./FormField";
 import FormFieldItemAddButton from "./FormFieldItemAddButton";
 import FormFieldItemRemove from "./FormFieldItemRemoveButton";
 
-export type FormFieldSetProps = {
-  children: FormElement;
+type FormFieldSetBaseProps = {
   minOccurance: number;
   occurances?: number;
   maxOccurance?: number;
@@ -15,6 +16,17 @@ export type FormFieldSetProps = {
   name: string;
   type: "FieldSet";
 };
+type FormFieldSetWithChildProps = {
+  childProps: FormProps[];
+} & FormFieldSetBaseProps;
+
+type FormFieldWithChildElementProps = {
+  children: FormElement;
+} & FormFieldSetBaseProps;
+
+export type FormFieldSetProps =
+  | FormFieldSetWithChildProps
+  | FormFieldWithChildElementProps;
 
 function cloneElement(name: string, index: number) {
   return (child: any) =>
@@ -23,9 +35,25 @@ function cloneElement(name: string, index: number) {
     });
 }
 
+function isFormFieldWithChildProps(
+  value: FormFieldSetProps
+): value is FormFieldSetWithChildProps {
+  return (
+    typeof (value as FormFieldSetWithChildProps).childProps !== "undefined"
+  );
+}
+
 function FormFieldSet(props: FormFieldSetProps) {
+  debugger;
+
+  const [children] = useState(() =>
+    isFormFieldWithChildProps(props)
+      ? props.childProps.map(fieldFactory)
+      : props.children
+  );
+
   const elements: FormElement[] = [];
-  React.Children.toArray(props.children).forEach((child) => {
+  React.Children.toArray(children).forEach((child) => {
     if (
       React.isValidElement<FormFieldProps>(child) ||
       React.isValidElement<FormFieldSetProps>(child)

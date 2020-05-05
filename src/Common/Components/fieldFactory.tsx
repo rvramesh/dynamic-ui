@@ -1,8 +1,9 @@
 import * as React from "react";
-import FormField, { FormFieldProps } from "./FormField";
-import FormFieldSet, { FormFieldSetProps } from "./FormFieldSet";
+import { FormProps } from "./DynamicForm";
+import FormField from "./FormField";
+import FormFieldSet from "./FormFieldSet";
 
-export const fieldFactory = (prop: FormFieldProps | FormFieldSetProps) =>
+export const fieldFactory = (prop: FormProps) =>
   prop.type !== "FieldSet" ? (
     <FormField {...prop} />
   ) : (
