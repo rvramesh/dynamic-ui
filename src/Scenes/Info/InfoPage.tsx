@@ -26,6 +26,14 @@ function InfoPage() {
       max: "2020-05-20",
     },
     {
+      name: "number",
+      displayName: "number",
+      type: "NumericTextBox",
+      format: "p2",
+      min: "0",
+      max: "0.50",
+    },
+    {
       name: "datetime",
       displayName: "Hello World",
       type: "DateTime",

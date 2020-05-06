@@ -88,4 +88,19 @@ const parseOffsetAndGetDate = (offset: string) => {
   }
 };
 
-export { getDateValue, parseOffsetAndGetDate, getDateRangeValue };
+const parseDateFromString = (date: string) => {
+  if (!isNaN(Date.parse(date))) {
+    //if Offset is of valid date format, return the same
+    return new Date(date);
+  } else {
+    //if offset is not valid, return undefined
+    return undefined;
+  }
+};
+
+export {
+  getDateValue,
+  parseOffsetAndGetDate,
+  getDateRangeValue,
+  parseDateFromString,
+};

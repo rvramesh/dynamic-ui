@@ -6,3 +6,12 @@ export function isBoolean(value: FormFieldValue): value is boolean | undefined {
 
 export const getBooleanValue = (value: FormFieldValue) =>
   value && isBoolean(value) ? value : false;
+
+export const parseBooleanFromString = (value: string | undefined) =>
+  value
+    ? value.toLowerCase() === "true"
+      ? true
+      : value.toLowerCase() === "false"
+      ? false
+      : undefined
+    : undefined;
