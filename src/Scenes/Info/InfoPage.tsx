@@ -20,8 +20,10 @@ function InfoPage() {
     },
     {
       name: "date",
-      displayName: "Hello World",
+      displayName: "Min & Max",
       type: "Date",
+      min: "-1m",
+      max: "2020-05-20",
     },
     {
       name: "datetime",

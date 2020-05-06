@@ -32,6 +32,7 @@ function cloneElement(name: string, index: number) {
   return (child: any) =>
     React.cloneElement(child, {
       name: name + "[" + index + "]." + child.props.name,
+      key: name + "[" + index + "]." + child.props.name,
     });
 }
 
@@ -44,8 +45,6 @@ function isFormFieldWithChildProps(
 }
 
 function FormFieldSet(props: FormFieldSetProps) {
-  debugger;
-
   const [children] = useState(() =>
     isFormFieldWithChildProps(props)
       ? props.childProps.map(fieldFactory)

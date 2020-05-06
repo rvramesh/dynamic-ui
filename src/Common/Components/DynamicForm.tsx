@@ -30,7 +30,6 @@ function isDynamicFormWithProps(
 }
 
 function DynamicForm(props: DynamicFormProps) {
-  debugger;
   if (isDynamicFormWithProps(props)) {
     const children = props.formSchema.map(fieldFactory);
     return (

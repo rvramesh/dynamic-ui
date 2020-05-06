@@ -5,7 +5,7 @@ import FormFieldSet from "./FormFieldSet";
 
 export const fieldFactory = (prop: FormProps) =>
   prop.type !== "FieldSet" ? (
-    <FormField {...prop} />
+    <FormField {...prop} key={prop.name} />
   ) : (
-    <FormFieldSet {...prop} />
+    <FormFieldSet {...prop} key={prop.name} />
   );
