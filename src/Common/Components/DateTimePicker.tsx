@@ -25,6 +25,7 @@ const DateTimePicker: FunctionComponent<DateTimePickerProps> = (props) => {
       value={value}
       min={minValue}
       max={maxValue}
+      width="100%"
     />
   );
 };

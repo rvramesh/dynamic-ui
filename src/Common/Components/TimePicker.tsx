@@ -25,6 +25,7 @@ const TimePicker: FunctionComponent<TimePickerProps> = (props) => {
       value={value}
       min={minValue}
       max={maxValue}
+      width="100%"
     />
   );
 };

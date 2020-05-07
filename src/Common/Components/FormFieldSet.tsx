@@ -111,7 +111,7 @@ const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
       <Grid container item spacing={1} style={style}>
         {content}
         {(!props.max || index < props.max) && (
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12}>
             <FormFieldItemAddButton addClicked={() => setIndex(index + 1)} />
           </Grid>
         )}

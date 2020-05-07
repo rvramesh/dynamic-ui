@@ -27,6 +27,7 @@ const DateRangePicker: FunctionComponent<DateRangePickerProps> = (props) => {
       value={value}
       min={minValue}
       max={maxValue}
+      style={{ width: "100%" }}
     />
   );
 };

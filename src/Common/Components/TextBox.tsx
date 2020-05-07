@@ -31,6 +31,7 @@ const TextBox: React.FunctionComponent<TextBoxProps> = (props) => {
       multiple={multiline}
       minLength={minLength}
       maxLength={maxLength}
+      style={{ width: "100%" }}
     />
   );
 };

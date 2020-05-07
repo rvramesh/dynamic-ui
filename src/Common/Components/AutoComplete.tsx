@@ -65,6 +65,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
           : undefined
       }
       textField="text"
+      style={{ width: "100%" }}
     />
   );
 };

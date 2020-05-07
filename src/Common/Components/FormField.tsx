@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
     errorContainer: {
       backgroundColor: "#f4c2c2",
     },
+    gridCell: {
+      padding: "0px 5px",
+    },
   })
 );
 
@@ -69,12 +72,13 @@ const FormField: FunctionComponent<FormFieldProps> = (
     });
   };
   return (
-    <React.Fragment>
+    <Grid item xs={12} sm={3}>
       <Grid
         item
         xs={12}
-        sm={3}
-        className={!validationResponse.valid ? styles.errorContainer : ""}
+        className={`${styles.gridCell} ${
+          !validationResponse.valid ? styles.errorContainer : ""
+        }`}
       >
         <label
           htmlFor={id}
@@ -86,8 +90,9 @@ const FormField: FunctionComponent<FormFieldProps> = (
       <Grid
         item
         xs={12}
-        sm={9}
-        className={!validationResponse.valid ? styles.errorContainer : ""}
+        className={`${styles.gridCell} ${
+          !validationResponse.valid ? styles.errorContainer : ""
+        }`}
       >
         {
           <Component
@@ -104,12 +109,14 @@ const FormField: FunctionComponent<FormFieldProps> = (
         <Grid
           item
           xs={12}
-          className={!validationResponse.valid ? styles.errorContainer : ""}
+          className={`${styles.gridCell} ${
+            !validationResponse.valid ? styles.errorContainer : ""
+          }`}
         >
           {validationResponse.message}
         </Grid>
       )}
-    </React.Fragment>
+    </Grid>
   );
 };
 

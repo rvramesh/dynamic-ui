@@ -2,7 +2,7 @@ import { FormFieldValue, KeyValue } from "../Types/FormFieldChildProps";
 
 export function isKeyValue(value: FormFieldValue): value is KeyValue {
   return (
-    typeof value === "object" && typeof (value as KeyValue).text === "string"
+    typeof value === "object" && typeof (value as KeyValue)?.text === "string"
   );
 }
 

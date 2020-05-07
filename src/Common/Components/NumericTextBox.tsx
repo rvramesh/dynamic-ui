@@ -25,6 +25,7 @@ const NumericTextBox: FunctionComponent<NumericTextBoxProps> = (props) => {
       min={minValue}
       max={maxValue}
       spinners={false}
+      width="100%"
     />
   );
 };

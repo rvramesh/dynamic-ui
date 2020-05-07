@@ -118,7 +118,7 @@ function InfoPage() {
 
   return (
     <div>
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         <DynamicForm formSchema={formSchema}></DynamicForm>
       </Grid>
     </div>

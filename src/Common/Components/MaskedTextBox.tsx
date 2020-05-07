@@ -17,6 +17,7 @@ const MaskedTextBox: FunctionComponent<MaskedTextBoxProps> = (props) => {
       {...props}
       onChange={(e) => props.onValueChange(e.value)}
       value={value}
+      width="100%"
     />
   );
 };
