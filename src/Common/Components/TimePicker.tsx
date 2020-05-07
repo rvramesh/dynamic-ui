@@ -3,6 +3,7 @@ import {
   TimePickerProps as KendoTimePickerProps,
 } from "@progress/kendo-react-dateinputs";
 import * as React from "react";
+import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getDateValue, parseDateFromString } from "../Utils/DateUtils";
 
@@ -12,7 +13,7 @@ type TimePickerProps = FormFieldChildProps &
     max?: string;
   };
 
-function TimePicker(props: TimePickerProps) {
+const TimePicker: FunctionComponent<TimePickerProps> = (props) => {
   const value = getDateValue(props.value);
   const minValue = props.min ? parseDateFromString(props.min) : undefined;
   const maxValue = props.max ? parseDateFromString(props.max) : undefined;
@@ -26,6 +27,6 @@ function TimePicker(props: TimePickerProps) {
       max={maxValue}
     />
   );
-}
+};
 
 export default TimePicker;

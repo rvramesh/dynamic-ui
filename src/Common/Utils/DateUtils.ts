@@ -76,12 +76,15 @@ const getDateRangeValue = (value: FormFieldValue): DateRange | undefined =>
     ? { start: getDateValue(value.start), end: getDateValue(value.end) }
     : undefined;
 
-const parseOffsetAndGetDate = (offset: string) => {
+const parseOffsetAndGetDate = (
+  offset: string,
+  dateProvider: () => Date = () => new Date()
+) => {
   if (!isNaN(Date.parse(offset))) {
     //if Offset is of valid date format, return the same
     return new Date(offset);
   } else if (_isDateOffsetPattern(offset)) {
-    return _dateArithmeticFromPattern(offset, new Date());
+    return _dateArithmeticFromPattern(offset, dateProvider());
   } else {
     //if offset is not valid, return undefined
     return undefined;

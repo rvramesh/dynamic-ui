@@ -3,13 +3,14 @@ import {
   MaskedTextBoxProps as KendoMaskedTextBoxProps,
 } from "@progress/kendo-react-inputs";
 import * as React from "react";
+import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getTextValue } from "../Utils/TextUtil";
 
-type MaskedTextBoxProps = Omit<KendoMaskedTextBoxProps, "value"> &
+type MaskedTextBoxProps = Omit<KendoMaskedTextBoxProps, "value" | "rules"> &
   FormFieldChildProps;
 
-function MaskedTextBox(props: MaskedTextBoxProps) {
+const MaskedTextBox: FunctionComponent<MaskedTextBoxProps> = (props) => {
   const value = getTextValue(props.value);
   return (
     <KendoMaskedTextBox
@@ -18,6 +19,6 @@ function MaskedTextBox(props: MaskedTextBoxProps) {
       value={value}
     />
   );
-}
+};
 
 export default MaskedTextBox;
