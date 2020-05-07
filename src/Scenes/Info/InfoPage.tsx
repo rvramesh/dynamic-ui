@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
 import DynamicForm, {
-  FormChildProps,
+  FormChildProps
 } from "../../Common/Components/DynamicForm";
 
 function InfoPage() {
@@ -11,34 +11,58 @@ function InfoPage() {
       displayName: "Country",
       type: "Select",
       entity: "countries",
-      url: "http://localhost:4000/",
+      url: "http://localhost:4000/"
     },
     {
       name: "state",
       displayName: "Hello World",
       type: "MultiSelect",
       entity: "states",
-      url: "http://localhost:4000/",
+      url: "http://localhost:4000/"
     },
     {
       name: "date",
       displayName: "Min & Max",
       type: "Date",
       min: "-1m",
-      max: "2020-05-20",
+      max: "2020-05-20"
     },
     {
-      name: "number",
-      displayName: "number",
+      name: "date1",
+      displayName: "Min & Max",
+      type: "Date",
+      min: "2020-01-20",
+      max: "2020-05-20"
+    },
+    {
+      name: "decimal",
+      displayName: "Decimal",
       type: "NumericTextBox",
-      format: "p2",
+      format: "n2",
       min: "0",
-      max: "0.50",
+      max: "0.50"
+    },
+    {
+      name: "currency",
+      displayName: "Currency",
+      type: "NumericTextBox",
+      format: "c2",
+      min: "0",
+      max: "1000"
+    },
+    {
+      name: "percentage",
+      displayName: "Percentage",
+      type: "NumericTextBox",
+      format: "p",
+      min: "0",
+      max: "1",
+      step: "0.1"
     },
     {
       name: "datetime",
       displayName: "Hello World",
-      type: "DateTime",
+      type: "DateTime"
     },
     {
       minOccurance: 1,
@@ -50,12 +74,12 @@ function InfoPage() {
         {
           name: "city-rpt",
           displayName: "Hello World",
-          type: "TextBox",
+          type: "TextBox"
         },
         {
           name: "active-rpt",
           displayName: "Hello World",
-          type: "CheckBox",
+          type: "CheckBox"
         },
         {
           minOccurance: 1,
@@ -65,12 +89,12 @@ function InfoPage() {
             {
               name: "date",
               displayName: "Hello World DATE",
-              type: "Date",
-            },
-          ],
-        },
-      ],
-    },
+              type: "Date"
+            }
+          ]
+        }
+      ]
+    }
   ];
 
   return (
