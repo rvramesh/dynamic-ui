@@ -55,6 +55,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
       onOpen={() => doSearch("")}
       data={localSearchResult}
       loading={status === "loading"}
+      disabled={status === "loading"}
       allowCustom={false}
       value={
         props.value

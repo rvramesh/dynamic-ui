@@ -57,6 +57,7 @@ const AutoCompleteMultiSelect: FunctionComponent<AutoCompleteFormFieldProps> = (
       onOpen={() => doSearch("")}
       data={localSearchResult}
       loading={status === "loading"}
+      disabled={status === "loading"}
       allowCustom={false}
       value={
         props.value
