@@ -13,7 +13,7 @@ export type FormFieldProps = {
   type: FormFieldChildType;
   displayName: string;
   name: string;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 const FormField: FunctionComponent<FormFieldProps> = (

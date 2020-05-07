@@ -13,7 +13,6 @@ type DatePickerProps = FormFieldChildProps &
   };
 
 function DatePicker(props: DatePickerProps) {
-  debugger;
   const value = getDateValue(props.value);
   const minValue = props.min ? parseOffsetAndGetDate(props.min) : undefined;
   const maxValue = props.max ? parseOffsetAndGetDate(props.max) : undefined;

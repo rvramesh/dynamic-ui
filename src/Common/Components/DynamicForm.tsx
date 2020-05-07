@@ -6,20 +6,17 @@ import { FormFieldProps } from "./FormField";
 import { FormFieldSetProps } from "./FormFieldSet";
 
 type DynamicFormWithChildren = {
-  children: FormElement;
+  children: FormElement[] | FormElement;
 };
 
 type DynamicFormWithProps = {
-  formSchema: FormProps[];
+  formSchema: FormChildProps[];
 };
 
 type DynamicFormProps = DynamicFormWithChildren | DynamicFormWithProps;
 
-export type FormProps = FormFieldProps | FormFieldSetProps;
-export type FormElement =
-  | React.ReactElement<FormFieldSetProps>
-  | React.ReactElement<FormFieldProps>
-  | FormElement[];
+export type FormChildProps = FormFieldProps | FormFieldSetProps;
+export type FormElement = React.ReactElement<FormChildProps>;
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 

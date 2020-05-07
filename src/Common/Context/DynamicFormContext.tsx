@@ -35,8 +35,12 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
     }
     case "removeFormFieldSetElement": {
       const payload = action.payload;
-      const arrayData = get("values." + payload.name, state);
-      if (arrayData && payload.index < arrayData.length) {
+      const arrayData = get(payload.name, state.values);
+      if (
+        arrayData &&
+        Array.isArray(arrayData) &&
+        payload.index < arrayData.length
+      ) {
         const firstSet = slice(0, payload.index, arrayData);
         console.log("array data after slice", arrayData);
         const secondSet = slice(payload.index + 1, arrayData.length, arrayData);

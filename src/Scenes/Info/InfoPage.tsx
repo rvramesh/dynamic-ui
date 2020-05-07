@@ -1,9 +1,11 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
-import DynamicForm, { FormProps } from "../../Common/Components/DynamicForm";
+import DynamicForm, {
+  FormChildProps,
+} from "../../Common/Components/DynamicForm";
 
 function InfoPage() {
-  const formSchema: FormProps[] = [
+  const formSchema: FormChildProps[] = [
     {
       name: "country",
       displayName: "Country",
@@ -14,7 +16,7 @@ function InfoPage() {
     {
       name: "state",
       displayName: "Hello World",
-      type: "Select",
+      type: "MultiSelect",
       entity: "states",
       url: "http://localhost:4000/",
     },

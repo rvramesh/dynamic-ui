@@ -1,8 +1,9 @@
 import { Grid } from "@material-ui/core";
+import { get } from "lodash/fp";
 import * as React from "react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useDynamicForm } from "../Context/DynamicFormContext";
-import { FormElement, FormProps } from "./DynamicForm";
+import { FormChildProps, FormElement } from "./DynamicForm";
 import { fieldFactory } from "./fieldFactory";
 import { FormFieldProps } from "./FormField";
 import FormFieldItemAddButton from "./FormFieldItemAddButton";
@@ -17,11 +18,11 @@ type FormFieldSetBaseProps = {
   type: "FieldSet";
 };
 type FormFieldSetWithChildProps = {
-  childProps: FormProps[];
+  childProps: FormChildProps[];
 } & FormFieldSetBaseProps;
 
 type FormFieldWithChildElementProps = {
-  children: FormElement;
+  children: FormElement[] | FormElement;
 } & FormFieldSetBaseProps;
 
 export type FormFieldSetProps =
@@ -29,8 +30,8 @@ export type FormFieldSetProps =
   | FormFieldWithChildElementProps;
 
 function cloneElement(name: string, index: number) {
-  return (child: any) =>
-    React.cloneElement(child, {
+  return (child: FormElement) =>
+    React.cloneElement<FormChildProps>(child, {
       name: name + "[" + index + "]." + child.props.name,
       key: name + "[" + index + "]." + child.props.name,
     });
@@ -61,10 +62,18 @@ function FormFieldSet(props: FormFieldSetProps) {
     }
   });
 
-  const [index, setIndex] = React.useState(() =>
-    Math.min(props.minOccurance, props.occurances ?? props.minOccurance)
-  );
   const [state, dispatch] = useDynamicForm();
+
+  const [index, setIndex] = React.useState(() => {
+    const fieldValue = get(props.name, state.values);
+    const fieltValueArrayLength = Array.isArray(fieldValue)
+      ? fieldValue.length
+      : undefined;
+    return Math.max(
+      props.minOccurance,
+      fieltValueArrayLength ?? props.occurances ?? props.minOccurance
+    );
+  });
 
   const removeIndex = (name: string, index: number) => {
     dispatch({
@@ -75,7 +84,7 @@ function FormFieldSet(props: FormFieldSetProps) {
       },
     });
   };
-  const content: any[] = [];
+  const content: ReactNode[] = [];
   console.log(index);
   for (let i = 0; i < index; i++) {
     content.push([elements.map(cloneElement(props.name, i))]);
