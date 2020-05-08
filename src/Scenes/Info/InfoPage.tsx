@@ -7,6 +7,19 @@ import DynamicForm, {
 function InfoPage() {
   const formSchema: FormChildProps[] = [
     {
+      name: "country",
+      displayName: "Country",
+      type: "Select",
+      entity: "countries",
+      url: "http://localhost:4000/",
+      rules: {
+        required: {
+          value: true,
+          message: "This is required"
+        }
+      }
+    },
+    {
       name: "state",
       displayName: "Hello World",
       type: "MultiSelect",
@@ -55,32 +68,74 @@ function InfoPage() {
       name: "date1",
       displayName: "Min & Max",
       type: "Date",
-      min: "2020-01-20",
-      max: "2020-05-20"
+      rules: {
+        min: {
+          value: "2020-01-20",
+          message: "The value should be greater than ${0}"
+        },
+        max: {
+          value: "2020-05-20",
+          message: "The value should be greater than ${0}"
+        }
+      }
     },
     {
       name: "decimal",
       displayName: "Decimal",
       type: "NumericTextBox",
       format: "n2",
-      min: "0",
-      max: "0.50"
+      rules: {
+        min: {
+          value: "0",
+          message: "The value should be greater than ${0}"
+        },
+        max: {
+          value: "0.5",
+          message: "The value should be greater than ${0}"
+        }
+      }
     },
     {
       name: "name",
       displayName: "Name",
       type: "TextBox",
-      min: "0",
-      max: "50",
-      pattern: "[0-9a-zA-Z]+"
+      rules: {
+        min: {
+          value: "0",
+          message: "The length of the value should be greater than ${0}"
+        },
+        max: {
+          value: "50",
+          message: "The length of the value should be less than ${0}"
+        },
+        regex: [
+          {
+            value: "[0-9a-zA-Z]+",
+            message: "Alphanumeric characters are allowed"
+          }
+        ]
+      }
     },
     {
       name: "zip",
       displayName: "ZIP",
       type: "TextBox",
-      min: "0",
-      max: "5",
-      pattern: "[0-9]+"
+      rules: {
+        min: {
+          value: "0",
+          message: "The length of the value should be greater than ${0}"
+        },
+        max: {
+          value: "5",
+          message: "The length of the value should be less than ${0}"
+        },
+        regex: [
+          {
+            value: "[0-9a-zA-Z]+",
+            message: "Alphanumeric characters are allowed"
+          }
+        ]
+      }
     },
     {
       name: "currency",
