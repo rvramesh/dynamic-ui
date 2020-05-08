@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import * as React from "react";
 import DynamicForm, {
-  FormChildProps,
+  FormChildProps
 } from "../../Common/Components/DynamicForm";
 
 function InfoPage() {
@@ -15,9 +15,9 @@ function InfoPage() {
       rules: {
         required: {
           value: true,
-          message: "This is required",
-        },
-      },
+          message: "This is required"
+        }
+      }
     },
     {
       name: "state",
@@ -28,13 +28,13 @@ function InfoPage() {
       rules: {
         min: {
           value: "2",
-          message: "Minimum ${0} is required",
+          message: "Minimum ${0} is required"
         },
         max: {
           value: "3",
-          message: "Maximum ${0} is required",
-        },
-      },
+          message: "Maximum ${0} is required"
+        }
+      }
     },
     {
       name: "date",
@@ -45,9 +45,9 @@ function InfoPage() {
 
         max: {
           value: "2020-05-20",
-          message: "The value entered should be less than ${0}",
-        },
-      },
+          message: "The value entered should be less than ${0}"
+        }
+      }
       //   {
       //     pattern:"",
       //     message: "The text entered is not a valid value."
@@ -65,8 +65,81 @@ function InfoPage() {
       // ],
     },
     {
-      name: "number",
-      displayName: "number",
+      name: "date1",
+      displayName: "Min & Max",
+      type: "Date",
+      rules: {
+        min: {
+          value: "2020-01-20",
+          message: "The value should be greater than ${0}"
+        },
+        max: {
+          value: "2020-05-20",
+          message: "The value should be greater than ${0}"
+        }
+      }
+    },
+    {
+      name: "decimal",
+      displayName: "Decimal",
+      type: "NumericTextBox",
+      format: "n2",
+      rules: {
+        min: {
+          value: "0",
+          message: "The value should be greater than ${0}"
+        },
+        max: {
+          value: "0.5",
+          message: "The value should be greater than ${0}"
+        }
+      }
+    },
+    {
+      name: "name",
+      displayName: "Name",
+      type: "TextBox",
+      rules: {
+        min: {
+          value: "0",
+          message: "The length of the value should be greater than ${0}"
+        },
+        max: {
+          value: "50",
+          message: "The length of the value should be less than ${0}"
+        },
+        regex: [
+          {
+            value: "[0-9a-zA-Z]+",
+            message: "Alphanumeric characters are allowed"
+          }
+        ]
+      }
+    },
+    {
+      name: "zip",
+      displayName: "ZIP",
+      type: "TextBox",
+      rules: {
+        min: {
+          value: "0",
+          message: "The length of the value should be greater than ${0}"
+        },
+        max: {
+          value: "5",
+          message: "The length of the value should be less than ${0}"
+        },
+        regex: [
+          {
+            value: "[0-9]+",
+            message: "Numbers are allowed"
+          }
+        ]
+      }
+    },
+    {
+      name: "currency",
+      displayName: "Currency",
       type: "NumericTextBox",
       format: "p2",
       rules: {
@@ -74,14 +147,14 @@ function InfoPage() {
 
         max: {
           value: "0.50",
-          message: "The value entered should be less than 50%",
-        },
-      },
+          message: "The value entered should be less than 50%"
+        }
+      }
     },
     {
       name: "datetime",
       displayName: "Hello World",
-      type: "DateTime",
+      type: "DateTime"
     },
     {
       min: 1,
@@ -93,12 +166,12 @@ function InfoPage() {
         {
           name: "city-rpt",
           displayName: "Hello World",
-          type: "TextBox",
+          type: "TextBox"
         },
         {
           name: "active-rpt",
           displayName: "Hello World",
-          type: "CheckBox",
+          type: "CheckBox"
         },
         {
           min: 1,
@@ -108,12 +181,12 @@ function InfoPage() {
             {
               name: "date",
               displayName: "Hello World DATE",
-              type: "Date",
-            },
-          ],
-        },
-      ],
-    },
+              type: "Date"
+            }
+          ]
+        }
+      ]
+    }
   ];
 
   return (
