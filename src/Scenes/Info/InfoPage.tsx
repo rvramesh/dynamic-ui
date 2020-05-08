@@ -7,19 +7,6 @@ import DynamicForm, {
 function InfoPage() {
   const formSchema: FormChildProps[] = [
     {
-      name: "country",
-      displayName: "Country",
-      type: "Select",
-      entity: "countries",
-      url: "http://localhost:4000/",
-      rules: {
-        required: {
-          value: true,
-          message: "This is required"
-        }
-      }
-    },
-    {
       name: "state",
       displayName: "Hello World",
       type: "MultiSelect",
@@ -78,6 +65,22 @@ function InfoPage() {
       format: "n2",
       min: "0",
       max: "0.50"
+    },
+    {
+      name: "name",
+      displayName: "Name",
+      type: "TextBox",
+      min: "0",
+      max: "50",
+      pattern: "[0-9a-zA-Z]+"
+    },
+    {
+      name: "zip",
+      displayName: "ZIP",
+      type: "TextBox",
+      min: "0",
+      max: "5",
+      pattern: "[0-9]+"
     },
     {
       name: "currency",
