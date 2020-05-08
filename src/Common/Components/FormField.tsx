@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#f4c2c2",
     },
     gridCell: {
-      padding: "0px 5px",
+      padding: "5px",
     },
   })
 );
