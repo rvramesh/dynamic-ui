@@ -21,18 +21,18 @@ function InfoPage() {
     },
     {
       name: "state",
-      displayName: "Hello World",
+      displayName: "State",
       type: "MultiSelect",
       entity: "states",
       url: "http://localhost:4000/",
       rules: {
         min: {
           value: "2",
-          message: "Minimum ${0} is required",
+          message: "Minimum $[0] is required",
         },
         max: {
           value: "3",
-          message: "Maximum ${0} is required",
+          message: "Maximum $[0] is required",
         },
       },
     },
@@ -41,36 +41,21 @@ function InfoPage() {
       displayName: "Min & Max",
       type: "Date",
       rules: {
-        min: { value: "-1m", message: "The value entered should be more ${0}" },
+        min: { value: "-1m", message: "The value entered should be more $[0]" },
 
         max: {
           value: "2020-05-20",
-          message: "The value entered should be less than ${0}",
+          message: "The value entered should be less than $[0]",
         },
       },
-      //   {
-      //     pattern:"",
-      //     message: "The text entered is not a valid value."
-      //   },{
-      //     required:true,
-      //     message :""
-      //   },{
-      //     minRange:"",
-      //     message:""
-      //   },
-      //   {
-      //     maxRange:"",
-      //     message:""
-      //   }
-      // ],
     },
     {
       name: "number",
-      displayName: "number",
+      displayName: "Percentage",
       type: "NumericTextBox",
       format: "p2",
       rules: {
-        min: { value: "0", message: "The value entered should be more ${0}" },
+        min: { value: "0", message: "The value entered should be more $[0]" },
 
         max: {
           value: "0.50",
@@ -79,9 +64,33 @@ function InfoPage() {
       },
     },
     {
+      name: "currency",
+      displayName: "Currency",
+      type: "NumericTextBox",
+      format: "c2",
+      rules: {
+        min: { value: "0", message: "The value entered should be more $[0]" },
+
+        max: {
+          value: "5000",
+          message: "The value entered should be less than $[0]",
+        },
+      },
+    },
+    {
       name: "datetime",
-      displayName: "Hello World",
+      displayName: "Date & Time",
       type: "DateTime",
+    },
+    {
+      name: "time",
+      displayName: "Time",
+      type: "Time",
+    },
+    {
+      name: "dateRange",
+      displayName: "Date Range",
+      type: "DateRange",
     },
     {
       min: 1,
@@ -92,13 +101,32 @@ function InfoPage() {
       childProps: [
         {
           name: "city-rpt",
-          displayName: "Hello World",
+          displayName: "Email",
           type: "TextBox",
+          rules: {
+            min: {
+              value: 5,
+              message: "Field should be minimum 5 characters long.",
+            },
+            regex: [
+              {
+                value:
+                  "^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+).([a-zA-Z]{2,5})$",
+                message: "Enter a valid email",
+              },
+            ],
+          },
         },
         {
           name: "active-rpt",
-          displayName: "Hello World",
+          displayName: "Check Box",
           type: "CheckBox",
+          rules: {
+            required: {
+              value: true,
+              message: "This needs to be checked",
+            },
+          },
         },
         {
           min: 1,
@@ -107,7 +135,7 @@ function InfoPage() {
           childProps: [
             {
               name: "date",
-              displayName: "Hello World DATE",
+              displayName: "Nested Date Collection",
               type: "Date",
             },
           ],

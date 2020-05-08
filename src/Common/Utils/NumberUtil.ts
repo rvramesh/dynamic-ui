@@ -8,10 +8,10 @@ export const getNumberValue = (value: FormFieldValue): number | undefined =>
   value && isNumber(value) ? value : undefined;
 
 export const parseNumberFromString = (
-  value: string | undefined
+  value: string | undefined | number
 ): number | undefined => {
   if (value) {
-    const result = parseFloat(value);
+    const result = parseFloat(value.toString());
     return isNaN(result) ? undefined : result;
   } else {
     return undefined;

@@ -16,14 +16,14 @@ export type FormFieldValue =
   | KeyValue[]
   | undefined;
 
-export type ValidationValueMessage<T extends string | boolean> = {
+export type ValidationValueMessage<T extends string | boolean | number> = {
   value: T;
   message: string;
 };
 
 export type ValidationRules = {
-  min?: ValidationValueMessage<string>;
-  max?: ValidationValueMessage<string>;
+  min?: ValidationValueMessage<string | number>;
+  max?: ValidationValueMessage<string | number>;
   regex?: ValidationValueMessage<string>[];
   required?: ValidationValueMessage<boolean>;
   minRange?: ValidationValueMessage<string>;

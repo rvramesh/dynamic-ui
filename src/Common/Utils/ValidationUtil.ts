@@ -9,7 +9,7 @@ export function getErrorMessage(pattern: string, ...values: string[]) {
     return pattern;
   }
   for (let i = 0; i < values.length; i++) {
-    pattern = pattern.replace("${" + i + "}", values[i]);
+    pattern = pattern.replace("$[" + i + "]", values[i]);
   }
   return pattern;
 }
@@ -19,7 +19,7 @@ export function getErrorMessageForRule(rule: ValidationValueMessage<string>) {
 }
 
 export function getValidationFailure(
-  rule: ValidationValueMessage<string>,
+  rule: ValidationValueMessage<string | number>,
   values?: string[]
 ) {
   if (values) {
@@ -27,7 +27,7 @@ export function getValidationFailure(
   } else {
     return {
       valid: false,
-      message: getErrorMessage(rule.message, rule.value),
+      message: getErrorMessage(rule.message, rule.value.toString()),
     };
   }
 }

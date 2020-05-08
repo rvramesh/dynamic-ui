@@ -1,4 +1,5 @@
 import { DateRange, FormFieldValue } from "../Types/FormFieldChildProps";
+import { isNumber } from "./NumberUtil";
 
 //We are using /g switch which will make .test and .exec stateful
 //so, we are creating a factory method to return new object
@@ -77,9 +78,12 @@ const getDateRangeValue = (value: FormFieldValue): DateRange | undefined =>
     : undefined;
 
 const parseOffsetAndGetDate = (
-  offset: string,
+  offset: string | number,
   dateProvider: () => Date = () => new Date()
 ) => {
+  if (isNumber(offset)) {
+    return undefined;
+  }
   if (!isNaN(Date.parse(offset))) {
     //if Offset is of valid date format, return the same
     return new Date(offset);
