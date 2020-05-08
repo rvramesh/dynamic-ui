@@ -131,8 +131,8 @@ function InfoPage() {
         },
         regex: [
           {
-            value: "[0-9a-zA-Z]+",
-            message: "Alphanumeric characters are allowed"
+            value: "[0-9]+",
+            message: "Numbers are allowed"
           }
         ]
       }
