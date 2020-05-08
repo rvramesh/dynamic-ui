@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
 import { get } from "lodash/fp";
 import * as React from "react";
-import { ReactNode, useState } from "react";
+import { FunctionComponent, ReactNode, useState } from "react";
 import { useDynamicForm } from "../Context/DynamicFormContext";
 import { FormChildProps, FormElement } from "./DynamicForm";
 import { fieldFactory } from "./fieldFactory";
@@ -10,9 +10,9 @@ import FormFieldItemAddButton from "./FormFieldItemAddButton";
 import FormFieldItemRemove from "./FormFieldItemRemoveButton";
 
 type FormFieldSetBaseProps = {
-  minOccurance: number;
+  min?: number;
   occurances?: number;
-  maxOccurance?: number;
+  max?: number;
   avoidPadLeft?: boolean;
   name: string;
   type: "FieldSet";
@@ -45,7 +45,12 @@ function isFormFieldWithChildProps(
   );
 }
 
-function FormFieldSet(props: FormFieldSetProps) {
+const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
+  //Default props will be used when calling from jsx only
+  //will be missing if specified in json schema
+  //initialize with defaultProps.min
+  const minChildren = props.min ?? 1;
+
   const [children] = useState(() =>
     isFormFieldWithChildProps(props)
       ? props.childProps.map(fieldFactory)
@@ -70,8 +75,8 @@ function FormFieldSet(props: FormFieldSetProps) {
       ? fieldValue.length
       : undefined;
     return Math.max(
-      props.minOccurance,
-      fieltValueArrayLength ?? props.occurances ?? props.minOccurance
+      minChildren,
+      fieltValueArrayLength ?? props.occurances ?? minChildren
     );
   });
 
@@ -88,7 +93,7 @@ function FormFieldSet(props: FormFieldSetProps) {
   console.log(index);
   for (let i = 0; i < index; i++) {
     content.push([elements.map(cloneElement(props.name, i))]);
-    if (index > props.minOccurance) {
+    if (index > minChildren) {
       content.push(
         <FormFieldItemRemove
           removeClicked={() => {
@@ -105,19 +110,18 @@ function FormFieldSet(props: FormFieldSetProps) {
     <React.Fragment>
       <Grid container item spacing={1} style={style}>
         {content}
-        {(!props.maxOccurance || index < props.maxOccurance) && (
-          <Grid item xs={12} sm={9}>
+        {(!props.max || index < props.max) && (
+          <Grid item xs={12}>
             <FormFieldItemAddButton addClicked={() => setIndex(index + 1)} />
           </Grid>
         )}
       </Grid>
     </React.Fragment>
   );
-}
+};
 
 FormFieldSet.defaultProps = {
   type: "FieldSet",
-  minOccurance: 1,
 };
 
 export default FormFieldSet;

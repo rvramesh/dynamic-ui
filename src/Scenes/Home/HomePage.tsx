@@ -47,7 +47,7 @@ function HomePage() {
             displayName="Hello World"
             type="DateTime"
           />
-          <FormFieldSet avoidPadLeft={true} name="set2" maxOccurance={2}>
+          <FormFieldSet avoidPadLeft={true} name="set2" max={2} type="FieldSet">
             <FormField
               name="city-rpt"
               displayName="Hello World"
@@ -58,7 +58,7 @@ function HomePage() {
               displayName="Hello World"
               type="CheckBox"
             />
-            <FormFieldSet name="set1">
+            <FormFieldSet name="set1" type="FieldSet">
               <FormField
                 name="date"
                 displayName="Hello World DATE"

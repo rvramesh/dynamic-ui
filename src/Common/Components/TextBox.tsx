@@ -15,13 +15,13 @@ type TextBoxProps = FormFieldChildProps &
     max?: string;
   };
 
-function TextBox(props: TextBoxProps) {
+const TextBox: React.FunctionComponent<TextBoxProps> = (props) => {
   //Extract onValueChange out of props to avoid warning
   //Unknown event handler property `onValueChange`.
   const { onValueChange, ...others } = props;
   const multiline = parseBooleanFromString(props.multiline);
-  const minValue = parseNumberFromString(props.min);
-  const maxValue = parseNumberFromString(props.max);
+  const minLength = parseNumberFromString(props.min);
+  const maxLength = parseNumberFromString(props.max);
 
   return (
     <KendoTextBox
@@ -29,10 +29,11 @@ function TextBox(props: TextBoxProps) {
       onChange={(e) => onValueChange(e.target.value)}
       value={getTextValue(props.value)}
       multiple={multiline}
-      minLength={minValue}
-      maxLength={maxValue}
+      minLength={minLength}
+      maxLength={maxLength}
+      style={{ width: "100%" }}
     />
   );
-}
+};
 
 export default TextBox;

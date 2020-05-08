@@ -11,21 +11,58 @@ function InfoPage() {
       displayName: "Country",
       type: "Select",
       entity: "countries",
-      url: "http://localhost:4000/"
+      url: "http://localhost:4000/",
+      rules: {
+        required: {
+          value: true,
+          message: "This is required"
+        }
+      }
     },
     {
       name: "state",
       displayName: "Hello World",
       type: "MultiSelect",
       entity: "states",
-      url: "http://localhost:4000/"
+      url: "http://localhost:4000/",
+      rules: {
+        min: {
+          value: "2",
+          message: "Minimum ${0} is required"
+        },
+        max: {
+          value: "3",
+          message: "Maximum ${0} is required"
+        }
+      }
     },
     {
       name: "date",
       displayName: "Min & Max",
       type: "Date",
-      min: "-1m",
-      max: "2020-05-20"
+      rules: {
+        min: { value: "-1m", message: "The value entered should be more ${0}" },
+
+        max: {
+          value: "2020-05-20",
+          message: "The value entered should be less than ${0}"
+        }
+      }
+      //   {
+      //     pattern:"",
+      //     message: "The text entered is not a valid value."
+      //   },{
+      //     required:true,
+      //     message :""
+      //   },{
+      //     minRange:"",
+      //     message:""
+      //   },
+      //   {
+      //     maxRange:"",
+      //     message:""
+      //   }
+      // ],
     },
     {
       name: "date1",
@@ -46,18 +83,15 @@ function InfoPage() {
       name: "currency",
       displayName: "Currency",
       type: "NumericTextBox",
-      format: "c2",
-      min: "0",
-      max: "1000"
-    },
-    {
-      name: "percentage",
-      displayName: "Percentage",
-      type: "NumericTextBox",
-      format: "p",
-      min: "0",
-      max: "1",
-      step: "0.1"
+      format: "p2",
+      rules: {
+        min: { value: "0", message: "The value entered should be more ${0}" },
+
+        max: {
+          value: "0.50",
+          message: "The value entered should be less than 50%"
+        }
+      }
     },
     {
       name: "datetime",
@@ -65,10 +99,10 @@ function InfoPage() {
       type: "DateTime"
     },
     {
-      minOccurance: 1,
+      min: 1,
       avoidPadLeft: true,
       name: "set2",
-      maxOccurance: 2,
+      max: 2,
       type: "FieldSet",
       childProps: [
         {
@@ -82,7 +116,7 @@ function InfoPage() {
           type: "CheckBox"
         },
         {
-          minOccurance: 1,
+          min: 1,
           name: "set1",
           type: "FieldSet",
           childProps: [
@@ -99,7 +133,7 @@ function InfoPage() {
 
   return (
     <div>
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         <DynamicForm formSchema={formSchema}></DynamicForm>
       </Grid>
     </div>

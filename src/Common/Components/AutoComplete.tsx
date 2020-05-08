@@ -55,6 +55,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
       onOpen={() => doSearch("")}
       data={localSearchResult}
       loading={status === "loading"}
+      disabled={status === "loading"}
       allowCustom={false}
       value={
         props.value
@@ -64,6 +65,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
           : undefined
       }
       textField="text"
+      style={{ width: "100%" }}
     />
   );
 };

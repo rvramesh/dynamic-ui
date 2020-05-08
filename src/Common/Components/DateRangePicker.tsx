@@ -3,6 +3,7 @@ import {
   DateRangePickerProps as KendoDateRangePickerProps,
 } from "@progress/kendo-react-dateinputs";
 import * as React from "react";
+import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getDateRangeValue, parseOffsetAndGetDate } from "../Utils/DateUtils";
 
@@ -12,7 +13,7 @@ type DateRangePickerProps = FormFieldChildProps &
     max?: string;
   };
 
-function DateRangePicker(props: DateRangePickerProps) {
+const DateRangePicker: FunctionComponent<DateRangePickerProps> = (props) => {
   const value = getDateRangeValue(props.value);
   const minValue = props.min ? parseOffsetAndGetDate(props.min) : undefined;
   const maxValue = props.max ? parseOffsetAndGetDate(props.max) : undefined;
@@ -26,8 +27,9 @@ function DateRangePicker(props: DateRangePickerProps) {
       value={value}
       min={minValue}
       max={maxValue}
+      style={{ width: "100%" }}
     />
   );
-}
+};
 
 export default DateRangePicker;

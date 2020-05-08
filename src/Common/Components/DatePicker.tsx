@@ -3,6 +3,7 @@ import {
   DatePickerProps as KendoDatePickerProps,
 } from "@progress/kendo-react-dateinputs";
 import * as React from "react";
+import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getDateValue, parseOffsetAndGetDate } from "../Utils/DateUtils";
 
@@ -12,7 +13,7 @@ type DatePickerProps = FormFieldChildProps &
     max?: string;
   };
 
-function DatePicker(props: DatePickerProps) {
+const DatePicker: FunctionComponent<DatePickerProps> = (props) => {
   const value = getDateValue(props.value);
   const minValue = props.min ? parseOffsetAndGetDate(props.min) : undefined;
   const maxValue = props.max ? parseOffsetAndGetDate(props.max) : undefined;
@@ -23,8 +24,9 @@ function DatePicker(props: DatePickerProps) {
       value={value}
       min={minValue}
       max={maxValue}
+      width="100%"
     />
   );
-}
+};
 
 export default DatePicker;
