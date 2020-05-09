@@ -64,7 +64,7 @@ const AutoCompleteMultiSelect: FunctionComponent<AutoCompleteFormFieldProps> = (
           ? Array.isArray(props.value)
             ? props.value
             : [props.value]
-          : undefined
+          : []
       }
       textField="text"
     />

@@ -9,7 +9,7 @@ import {
   ValidationResponse,
   ValidationRules,
 } from "../Types/FormFieldChildProps";
-import { FieldMapping, FieldValidatorMapping } from "../Utils/FormUtil";
+import { FieldMapping } from "../Utils/FormUtil";
 
 export type FormFieldProps = {
   type: FormFieldChildType;
@@ -49,19 +49,28 @@ const FormField: FunctionComponent<FormFieldProps> = (
   //Lazy initialize the state value. Will be called only on first render.
   const [id] = useState(() => uniqueId("form-component-"));
 
-  const [visited, setVisited] = useState(false);
   const [state, dispatch] = useDynamicForm();
   const fieldValue = get(name, state.values);
+  const visited = get(name, state.visited) === true;
   const Component = FieldMapping[type];
-  const validator = FieldValidatorMapping[type];
-  const showInitialStateError = false;
+
   let validationResponse: ValidationResponse = { valid: true };
-  if (visited || showInitialStateError) {
-    validationResponse = validator(rules, fieldValue);
+  if (visited || state.showError) {
+    validationResponse = get("errors." + name, state.validationState) ?? {
+      valid: true,
+    };
   }
 
   const styles = useStyles();
 
+  const dispatchVisited = () => {
+    dispatch({
+      type: "visited",
+      payload: {
+        name: name,
+      },
+    });
+  };
   const dispatchChangeEvent = (value: FormFieldValue) => {
     dispatch({
       type: "change",
@@ -98,7 +107,7 @@ const FormField: FunctionComponent<FormFieldProps> = (
           <Component
             {...other}
             id={id}
-            onBlur={() => setVisited(true)}
+            onBlur={() => dispatchVisited()}
             onValueChange={dispatchChangeEvent}
             value={fieldValue}
             valid={validationResponse.valid}

@@ -45,7 +45,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
       );
     }
   };
-
+  console.log("Renderin autocomplete", props.value);
   return (
     <KendoComboBox
       {...props}
@@ -62,7 +62,7 @@ const AutoComplete: FunctionComponent<AutoCompleteFormFieldProps> = (props) => {
           ? Array.isArray(props.value)
             ? props.value[0]
             : props.value
-          : undefined
+          : null
       }
       textField="text"
       style={{ width: "100%" }}

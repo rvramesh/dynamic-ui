@@ -6,8 +6,4 @@ export function isText(value: FormFieldValue): value is string {
 }
 
 export const getTextValue = (value: FormFieldValue) =>
-  value && isText(value)
-    ? value
-    : isNumber(value)
-    ? value.toString()
-    : undefined;
+  value && isText(value) ? value : isNumber(value) ? value.toString() : null;

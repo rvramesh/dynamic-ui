@@ -6,6 +6,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getDateValue, parseDateFromString } from "../Utils/DateUtils";
+import WrappedDateInput from "./DateInput";
 
 type TimePickerProps = FormFieldChildProps &
   Omit<KendoTimePickerProps, "value" | "min" | "max"> & {
@@ -26,6 +27,7 @@ const TimePicker: FunctionComponent<TimePickerProps> = (props) => {
       min={minValue}
       max={maxValue}
       width="100%"
+      dateInput={WrappedDateInput}
     />
   );
 };

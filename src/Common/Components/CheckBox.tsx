@@ -12,13 +12,13 @@ type CheckBoxProps = FormFieldChildProps & Omit<KendoCheckBoxProps, "value">;
 const CheckBox: FunctionComponent<CheckBoxProps> = (props) => {
   //Extract onValueChange out of props to avoid warning
   //Unknown event handler property `onValueChange`.
-  const { onValueChange, valid, ...others } = props;
+  const { onValueChange, valid, value, ...others } = props;
 
   return (
     <KendoCheckBox
       {...others}
       onChange={(e) => onValueChange(e.value)}
-      value={getBooleanValue(props.value)}
+      checked={getBooleanValue(props.value) ?? false}
     />
   );
 };

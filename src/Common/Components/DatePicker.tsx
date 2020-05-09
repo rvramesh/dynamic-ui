@@ -6,6 +6,7 @@ import * as React from "react";
 import { FunctionComponent } from "react";
 import { FormFieldChildProps } from "../Types/FormFieldChildProps";
 import { getDateValue, parseOffsetAndGetDate } from "../Utils/DateUtils";
+import WrappedDateInput from "./DateInput";
 
 type DatePickerProps = FormFieldChildProps &
   Omit<KendoDatePickerProps, "value" | "min" | "max"> & {
@@ -20,7 +21,11 @@ const DatePicker: FunctionComponent<DatePickerProps> = (props) => {
   return (
     <KendoDatePicker
       {...props}
-      onChange={(e) => props.onValueChange(e.value)}
+      onChange={(e) => {
+        debugger;
+        props.onValueChange(e.value);
+      }}
+      dateInput={WrappedDateInput}
       value={value}
       min={minValue}
       max={maxValue}

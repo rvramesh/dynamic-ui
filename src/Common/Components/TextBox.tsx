@@ -27,7 +27,7 @@ const TextBox: React.FunctionComponent<TextBoxProps> = (props) => {
     <KendoTextBox
       {...others}
       onChange={(e) => onValueChange(e.target.value)}
-      value={getTextValue(props.value)}
+      value={getTextValue(props.value) ?? ""}
       multiple={multiline}
       minLength={minLength}
       maxLength={maxLength}

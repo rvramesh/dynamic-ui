@@ -21,7 +21,7 @@ const NumericTextBox: FunctionComponent<NumericTextBoxProps> = (props) => {
     <KendoNumericTextBox
       {...props}
       onChange={(e) => props.onValueChange(e.target.value)}
-      value={value}
+      value={value === undefined ? null : value}
       min={minValue}
       max={maxValue}
       spinners={false}

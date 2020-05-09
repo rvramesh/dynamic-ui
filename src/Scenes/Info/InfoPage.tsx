@@ -1,8 +1,8 @@
-import { Grid } from "@material-ui/core";
 import * as React from "react";
 import DynamicForm, {
   FormChildProps,
 } from "../../Common/Components/DynamicForm";
+import { FormValues } from "../../Common/Context/DynamicFormContext";
 
 function InfoPage() {
   const formSchema: FormChildProps[] = [
@@ -93,10 +93,12 @@ function InfoPage() {
       type: "DateRange",
     },
     {
-      min: 1,
       avoidPadLeft: true,
       name: "set2",
-      max: 2,
+      rules: {
+        min: { value: 2, message: "Minimum Two sets" },
+        max: { value: 5, message: "Maximum Two sets" },
+      },
       type: "FieldSet",
       childProps: [
         {
@@ -129,14 +131,22 @@ function InfoPage() {
           },
         },
         {
-          min: 1,
           name: "set1",
           type: "FieldSet",
+          rules: {
+            min: { value: 1, message: "Collection is litte" },
+          },
           childProps: [
             {
               name: "date",
               displayName: "Nested Date Collection",
               type: "Date",
+              rules: {
+                required: {
+                  value: true,
+                  message: "You missed this!",
+                },
+              },
             },
           ],
         },
@@ -144,11 +154,21 @@ function InfoPage() {
     },
   ];
 
+  const [formEntry, setFormEntry] = React.useState<FormValues>();
   return (
     <div>
-      <Grid container spacing={0}>
-        <DynamicForm formSchema={formSchema}></DynamicForm>
-      </Grid>
+      <DynamicForm
+        formSchema={formSchema}
+        clearText="Clear"
+        submitText="Submit"
+        onSubmit={(value, validationState) => {
+          if (validationState.isValid) {
+            setFormEntry(value);
+          } else {
+            alert("Fix errors");
+          }
+        }}
+      ></DynamicForm>
     </div>
   );
 }

@@ -24,7 +24,7 @@ const DateRangePicker: FunctionComponent<DateRangePickerProps> = (props) => {
       onChange={(e) =>
         props.onValueChange({ start: e.value.start, end: e.value.end })
       }
-      value={value}
+      value={value ?? { start: null, end: null }}
       min={minValue}
       max={maxValue}
       style={{ width: "100%" }}

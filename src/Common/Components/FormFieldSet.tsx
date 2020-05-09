@@ -2,7 +2,10 @@ import { Grid } from "@material-ui/core";
 import { get } from "lodash/fp";
 import * as React from "react";
 import { FunctionComponent, ReactNode, useState } from "react";
-import { useDynamicForm } from "../Context/DynamicFormContext";
+import { State, useDynamicForm } from "../Context/DynamicFormContext";
+import { ValidationRules } from "../Types/FormFieldChildProps";
+import { parseNumberFromString } from "../Utils/NumberUtil";
+import { DEFAULT_FEILDSET_MIN_VALUE } from "../Utils/ValidationUtil";
 import { FormChildProps, FormElement } from "./DynamicForm";
 import { fieldFactory } from "./fieldFactory";
 import { FormFieldProps } from "./FormField";
@@ -10,11 +13,9 @@ import FormFieldItemAddButton from "./FormFieldItemAddButton";
 import FormFieldItemRemove from "./FormFieldItemRemoveButton";
 
 type FormFieldSetBaseProps = {
-  min?: number;
-  occurances?: number;
-  max?: number;
   avoidPadLeft?: boolean;
   name: string;
+  rules?: ValidationRules;
   type: "FieldSet";
 };
 type FormFieldSetWithChildProps = {
@@ -37,7 +38,7 @@ function cloneElement(name: string, index: number) {
     });
 }
 
-function isFormFieldWithChildProps(
+export function isFormFieldWithChildProps(
   value: FormFieldSetProps
 ): value is FormFieldSetWithChildProps {
   return (
@@ -49,8 +50,10 @@ const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
   //Default props will be used when calling from jsx only
   //will be missing if specified in json schema
   //initialize with defaultProps.min
-  const minChildren = props.min ?? 1;
-
+  const minChildren =
+    parseNumberFromString(props.rules?.min?.value) ??
+    DEFAULT_FEILDSET_MIN_VALUE;
+  const maxChildren = parseNumberFromString(props.rules?.max?.value);
   const [children] = useState(() =>
     isFormFieldWithChildProps(props)
       ? props.childProps.map(fieldFactory)
@@ -69,20 +72,20 @@ const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
 
   const [state, dispatch] = useDynamicForm();
 
-  const [index, setIndex] = React.useState(() => {
-    const fieldValue = get(props.name, state.values);
-    const fieltValueArrayLength = Array.isArray(fieldValue)
-      ? fieldValue.length
-      : undefined;
-    return Math.max(
-      minChildren,
-      fieltValueArrayLength ?? props.occurances ?? minChildren
-    );
-  });
+  const index = getOccurance(props, state) ?? DEFAULT_FEILDSET_MIN_VALUE;
 
   const removeIndex = (name: string, index: number) => {
     dispatch({
       type: "removeFormFieldSetElement",
+      payload: {
+        name: name,
+        index: index,
+      },
+    });
+  };
+  const addIndex = (name: string, index: number) => {
+    dispatch({
+      type: "addFormFieldSetElement",
       payload: {
         name: name,
         index: index,
@@ -98,7 +101,6 @@ const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
         <FormFieldItemRemove
           removeClicked={() => {
             removeIndex(props.name, i);
-            setIndex(index - 1);
           }}
           key={props.name + "-" + i}
         />
@@ -110,9 +112,13 @@ const FormFieldSet: FunctionComponent<FormFieldSetProps> = (props) => {
     <React.Fragment>
       <Grid container item spacing={1} style={style}>
         {content}
-        {(!props.max || index < props.max) && (
+        {(!maxChildren || index < maxChildren) && (
           <Grid item xs={12}>
-            <FormFieldItemAddButton addClicked={() => setIndex(index + 1)} />
+            <FormFieldItemAddButton
+              addClicked={() => {
+                addIndex(props.name, index + 1);
+              }}
+            />
           </Grid>
         )}
       </Grid>
@@ -125,3 +131,11 @@ FormFieldSet.defaultProps = {
 };
 
 export default FormFieldSet;
+
+function getOccurance(
+  props: React.PropsWithChildren<FormFieldSetProps>,
+  state: State
+) {
+  const content = get(props.name, state.formFieldSetLength);
+  return Array.isArray(content) ? content.length : content.occurance;
+}

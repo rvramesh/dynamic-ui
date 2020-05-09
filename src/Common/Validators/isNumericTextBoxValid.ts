@@ -37,7 +37,6 @@ export function isNumericTextBoxValid(
   rules?: ValidationRules,
   formValue?: FormFieldValue
 ): ValidationResponse {
-  debugger;
   const value = getNumberValue(formValue);
   if (!rules) {
     return { valid: true };

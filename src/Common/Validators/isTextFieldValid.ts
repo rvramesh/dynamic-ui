@@ -11,15 +11,15 @@ import {
   validate,
 } from "../Utils/ValidationUtil";
 
-function validateRequired(rules: ValidationRules, value?: string) {
+function validateRequired(rules: ValidationRules, value?: string | null) {
   if (
     rules.required?.value &&
-    (value === undefined || value.trim().length === 0)
+    (value === undefined || value === null || value.trim().length === 0)
   ) {
     return { valid: false, message: getErrorMessage(rules.required.message) };
   }
 }
-function validateMinLength(rules: ValidationRules, value?: string) {
+function validateMinLength(rules: ValidationRules, value?: string | null) {
   if (rules.min && rules.min?.value) {
     const minLength = parseNumberFromString(rules.min.value);
     if (minLength && value?.length && value.length < minLength) {
@@ -28,7 +28,7 @@ function validateMinLength(rules: ValidationRules, value?: string) {
   }
 }
 
-function validateMaxLength(rules: ValidationRules, value?: string) {
+function validateMaxLength(rules: ValidationRules, value?: string | null) {
   if (rules.max && rules.max?.value) {
     const maxLength = parseNumberFromString(rules.max.value);
     if (maxLength && value?.length && value.length > maxLength) {
@@ -37,7 +37,7 @@ function validateMaxLength(rules: ValidationRules, value?: string) {
   }
 }
 
-function validateRegex(rules: ValidationRules, value?: string) {
+function validateRegex(rules: ValidationRules, value?: string | null) {
   if (rules.regex) {
     for (const rule of rules.regex) {
       if (!new RegExp(rule.value).test(value ?? "")) {

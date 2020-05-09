@@ -16,7 +16,7 @@ const MaskedTextBox: FunctionComponent<MaskedTextBoxProps> = (props) => {
     <KendoMaskedTextBox
       {...props}
       onChange={(e) => props.onValueChange(e.value)}
-      value={value}
+      value={value ?? ""}
       width="100%"
     />
   );
