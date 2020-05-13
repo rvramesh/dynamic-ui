@@ -67,7 +67,7 @@ const _isDateRange = (value: FormFieldValue): value is DateRange =>
 const _isDate = (value: FormFieldValue): value is Date | string | number =>
   typeof value === "string" ||
   typeof value === "number" ||
-  typeof (value as Date).toUTCString === "function";
+  typeof (value as Date)?.toUTCString === "function";
 
 const getDateValue = (value: FormFieldValue): Date | null =>
   value && _isDate(value) ? new Date(value) : null;

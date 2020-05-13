@@ -18,6 +18,33 @@ function validateRequired(rules: ValidationRules, value?: DateRange) {
   }
 }
 
+function validateCompleteInput(value?: DateRange) {
+  if (
+    value &&
+    ((value.start === null && value.end !== null) ||
+      (value.start !== null && value.end === null))
+  ) {
+    return {
+      valid: false,
+      message: "Both Start and End date needs to be specified",
+    };
+  }
+}
+
+function validateStartDateIsBeforeEndDate(value?: DateRange) {
+  if (
+    value &&
+    value.start &&
+    value.end &&
+    value.end.getTime() < value.start.getTime()
+  ) {
+    return {
+      valid: false,
+      message: "End date should be more than start date",
+    };
+  }
+}
+
 function validateMinDateRange(rules: ValidationRules, value?: DateRange) {
   return validateMinDate(rules, value?.start);
 }
@@ -86,11 +113,20 @@ export function isDateRangeFieldValid(
   rules?: ValidationRules,
   formValue?: FormFieldValue
 ): ValidationResponse {
+  const value = getDateRangeValue(formValue);
+  const completeInputResult = validateCompleteInput(value);
+  if (completeInputResult) {
+    return completeInputResult;
+  }
+  const startDateBeforeEndDateResult = validateStartDateIsBeforeEndDate(value);
+  if (startDateBeforeEndDateResult) {
+    return startDateBeforeEndDateResult;
+  }
+
   if (!rules) {
     return { valid: true };
   }
 
-  const value = getDateRangeValue(formValue);
   return validate(
     rules,
     value,
