@@ -53,7 +53,7 @@ function InfoPage() {
       name: "number",
       displayName: "Percentage",
       type: "NumericTextBox",
-      format: "p2",
+      format: "p4",
       rules: {
         min: { value: "0", message: "The value entered should be more $[0]" },
 
@@ -116,6 +116,10 @@ function InfoPage() {
                   "^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+).([a-zA-Z]{2,5})$",
                 message: "Enter a valid email",
               },
+              {
+                value: "^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+).gmail.com$",
+                message: "No Gmail",
+              },
             ],
           },
         },
@@ -134,7 +138,7 @@ function InfoPage() {
           name: "set1",
           type: "FieldSet",
           rules: {
-            min: { value: 1, message: "Collection is litte" },
+            min: { value: 0, message: "Collection is litte" },
           },
           childProps: [
             {

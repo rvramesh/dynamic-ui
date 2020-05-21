@@ -5,7 +5,7 @@ import {
 import * as React from "react";
 
 type DateInputProps = KendoDateInputProps;
-function WrappedDateInput(props: DateInputProps) {
+function DateInput(props: DateInputProps) {
   const inputEl = React.useRef<KendoDateInput>(null);
   React.useLayoutEffect(() => {
     const { current }: { current: any } = inputEl;
@@ -27,7 +27,7 @@ function WrappedDateInput(props: DateInputProps) {
       current.element.removeEventListener("blur", handleBlur);
     };
   }, [inputEl]);
-  return <KendoDateInput {...props} ref={inputEl} />;
+  return <KendoDateInput {...props} ref={inputEl} disabled={true} />;
 }
 
-export default WrappedDateInput;
+export default DateInput;
