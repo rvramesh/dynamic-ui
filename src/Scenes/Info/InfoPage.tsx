@@ -102,7 +102,7 @@ function InfoPage() {
       type: "FieldSet",
       childProps: [
         {
-          name: "city-rpt",
+          name: "email-rpt",
           displayName: "Email",
           type: "TextBox",
           rules: {
@@ -151,6 +151,20 @@ function InfoPage() {
                   message: "You missed this!",
                 },
               },
+            },
+            {
+              name: "nested-set1",
+              type: "FieldSet",
+              rules: {
+                min: { value: 0, message: "Collection is litte" },
+              },
+              childProps: [
+                {
+                  name: "city",
+                  displayName: "city",
+                  type: "TextBox",
+                },
+              ],
             },
           ],
         },

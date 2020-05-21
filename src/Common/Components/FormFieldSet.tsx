@@ -137,5 +137,15 @@ function getOccurance(
   state: State
 ) {
   const content = get(props.name, state.formFieldSetLength);
-  return Array.isArray(content) ? content.length : content.occurance;
+
+  if (content === undefined) {
+    return (
+      parseNumberFromString(props.rules?.min?.value) ??
+      DEFAULT_FEILDSET_MIN_VALUE
+    );
+  }
+  if (Array.isArray(content)) {
+    return content.length;
+  }
+  return DEFAULT_FEILDSET_MIN_VALUE;
 }

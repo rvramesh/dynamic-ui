@@ -54,7 +54,7 @@ export type State = {
   showError: boolean;
   validationState: FormValidationState;
   visited: { [key: string]: boolean };
-  formFieldSetLength: { [key: string]: { occurance: number | undefined } | [] };
+  formFieldSetLength: { [key: string]: [] };
 };
 
 type DynamicFormProviderProps = {
@@ -87,6 +87,7 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
       break;
     }
     case "removeFormFieldSetElement": {
+      debugger;
       const payload = action.payload;
       const arrayData = get(payload.name, state.values);
       if (
@@ -104,29 +105,42 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
           state
         );
 
-        let value = get(`formFieldSetLength.${payload.name}.occurance`, state);
+        let value = get(`${payload.name}`, state.formFieldSetLength);
 
-        newState = set(
-          `formFieldSetLength.${payload.name}.occurance`,
-          value - 1,
-          newState
-        );
-        console.log("setting new state", newState);
+        if (Array.isArray(value)) {
+          const firstSet = slice(0, payload.index, value);
+          console.log("array data after slice", value);
+          const secondSet = slice(payload.index + 1, value.length, value);
+
+          newState = set(
+            "formFieldSetLength." + payload.name,
+            concat(firstSet, secondSet),
+            state
+          );
+        } else console.log("setting new state", newState);
       }
       break;
     }
     case "addFormFieldSetElement": {
       debugger;
       const payload = action.payload;
-      newState = set(`values.${payload.name}[${payload.index}]`, null, state);
+      const index = payload.index - 1;
+      newState = set(`values.${payload.name}[${index}]`, null, state);
 
-      let value = get(`formFieldSetLength.${payload.name}.occurance`, state);
+      let value = get(payload.name, state.formFieldSetLength);
 
-      newState = set(
-        `formFieldSetLength.${payload.name}.occurance`,
-        value + 1,
-        newState
-      );
+      if (Array.isArray(value)) {
+        const key = getRuleKey(payload.name);
+        const rule = get(key, newState.rules);
+        if (rule?.type === "FieldSet") {
+          newState = set(
+            `formFieldSetLength.${payload.name}[${index}]`,
+            buildFormFieldSetLength(rule.children),
+            newState
+          );
+        }
+      }
+
       break;
     }
     case "clear": {
@@ -154,6 +168,10 @@ function dynamicFormReducer(state: State, action: DynamicFormAction) {
   return validate(newState);
 }
 
+export function getRuleKey(name: string) {
+  return name.replace(/\[(\d+)\]\./g, ".children.");
+}
+
 function validate(state: State) {
   return set(
     "validationState",
@@ -172,14 +190,17 @@ function buildFormFieldSetLength(rules: FieldSchemaRules) {
           parseNumberFromString(element?.rules?.min?.value) ??
           DEFAULT_FEILDSET_MIN_VALUE;
         if (element.children) {
+          let childResultPresent = false;
           for (let i = 0; i < value; i++) {
             const childResult = buildFormFieldSetLength(element.children);
             if (childResult !== null) {
+              childResultPresent = true;
               result = set(`${key}[${i}]`, childResult, result);
             }
           }
-
-          result = set(`${key}` + ".occurance", value, result);
+          if (!childResultPresent) {
+            result = set(`${key}`, new Array(value), result);
+          }
         }
       }
     }
